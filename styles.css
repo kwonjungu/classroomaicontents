@@ -498,6 +498,17 @@ main { display: block; }
   min-width: 22px;
   padding-top: 2px;
 }
+.prompt-row .pcat {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin-top: 1px;
+  background: var(--ink); color: var(--on-primary);
+  border-radius: var(--rounded-lg);
+  padding: 3px 12px;
+  font-size: 12px; font-weight: 700;
+  white-space: nowrap;
+  min-width: 92px; text-align: center;
+}
 .prompt-row .ptext { flex: 1 1 auto; font-size: 16px; line-height: 1.6; color: var(--ink); }
 .prompt-copy {
   flex: 0 0 auto;
@@ -515,6 +526,14 @@ main { display: block; }
 
 /* 믹스보드 도입 */
 .guide-mix { margin-top: var(--sp-section); }
+.mix-highlight {
+  display: inline-block;
+  background: var(--ink); color: var(--on-primary);
+  border-radius: var(--rounded-lg);
+  padding: 8px 18px;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: var(--sp-md);
+}
 .guide-mix .mix-lead { font-size: 18px; line-height: 1.6; color: var(--charcoal); margin-bottom: var(--sp-lg); max-width: 640px; }
 .guide-mix .guide-shot { margin-bottom: var(--sp-lg); }
 .guide-mix .btn { margin-top: var(--sp-lg); }
@@ -694,6 +713,9 @@ main { display: block; }
   .key-grid { grid-template-columns: 1fr; gap: var(--sp-md); }
   .guide { grid-template-columns: 1fr; }
   .guide-step:not(:last-child)::after { display: none; }
+  .prompt-row { flex-wrap: wrap; }
+  .prompt-row .ptext { flex-basis: 100%; order: 3; }
+  .prompt-row .prompt-copy { margin-left: auto; }
 }
 
 @media (max-width: 768px) {
