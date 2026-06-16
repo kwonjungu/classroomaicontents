@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>교실에서 바로 사용하는 AI 컨텐츠 제작</title>
-  <meta name="description" content="수업에 바로 쓰는 AI 콘텐츠와 도구, 활용 가이드를 한곳에서. 교사를 위한 AI 컨텐츠 제작 플랫폼." />
+  <meta name="description" content="인공지능, 어떻게 쓰고 계신가요? 말만 하면 다 만드는 수업 자료 — 바이브 코딩과 패들렛 아케이드로 교실에서 바로 쓰는 AI 콘텐츠 제작." />
 
   <!-- 디스플레이 티어: Black Han Sans(KR) / Bebas Neue(Latin) — Futura ND 대체 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,8 +20,8 @@
   <!-- ======================= Utility bar ======================= -->
   <div class="utility-bar">
     <div class="shell">
-      <a class="caption-sm" href="#">수업 자료실</a>
-      <a class="caption-sm" href="#">도움말</a>
+      <a class="caption-sm" href="#deck">수업 자료실</a>
+      <a class="caption-sm" href="#guides">도움말</a>
       <a class="caption-sm" href="#">함께하기</a>
       <a class="caption-sm" href="#">로그인</a>
     </div>
@@ -34,7 +34,7 @@
       <a class="brand" href="#"><span class="swoosh">AI</span> 교실</a>
 
       <nav class="nav-links" aria-label="주요 메뉴">
-        <a class="active" href="#featured">새 콘텐츠</a>
+        <a class="active" href="#deck">수업 자료</a>
         <a href="#">초등</a>
         <a href="#">중등</a>
         <a href="#">고등</a>
@@ -56,115 +56,72 @@
 
   <main class="shell">
 
-    <!-- ======================= Campaign hero ======================= -->
-    <!-- 사진 교체: 아래 .hero 에 style="background-image:url('...')" 추가하면 끝 -->
-    <section class="hero" aria-label="대표 캠페인">
+    <!-- ======================= 1. 질문 히어로 ======================= -->
+    <section class="hero" aria-label="인공지능 어떻게 쓰고 계신가요?">
       <div class="hero-inner">
-        <p class="eyebrow">CLASSROOM × AI</p>
-        <h1 class="display-campaign">교실에서 바로<br />사용하는<br />AI 컨텐츠 제작</h1>
+        <span class="gemini-badge">
+          <img src="assets/gemini.png" alt="Gemini" />
+        </span>
+        <h1 class="display-campaign">인공지능<br />어떻게 쓰고<br />계신가요?</h1>
+        <p class="hero-sub">말만 하면 다 만드는 수업 자료 — 바이브 코딩으로 시작하세요.</p>
         <div class="hero-cta">
-          <a class="btn btn-on-image" href="#featured">지금 시작하기</a>
-          <a class="btn btn-primary" href="#guides">제작 가이드 보기</a>
+          <a class="btn btn-on-image" href="#deck">수업 자료 보기</a>
+          <a class="btn btn-primary" href="https://gemini.google.com" target="_blank" rel="noopener">제미나이 열기</a>
         </div>
       </div>
     </section>
 
-    <!-- ======================= 지금 인기 있는 콘텐츠 ======================= -->
-    <section class="section" aria-label="지금 인기 있는 콘텐츠">
-      <div class="section-head">
-        <h2 class="heading-xl">지금 인기 있는 콘텐츠</h2>
-        <a class="link-more" href="#">전체 보기</a>
-      </div>
-      <div class="grid grid-3">
-
-        <article class="card">
-          <div class="card-image">
-            <span class="placeholder" aria-hidden="true">&#129302;</span>
-            <span class="badge-promo">NEW</span>
-          </div>
-          <div class="card-body">
-            <div class="swatch-row" aria-hidden="true">
-              <span class="swatch-dot active" style="background:#111"></span>
-              <span class="swatch-dot" style="background:var(--accent-teal)"></span>
-              <span class="swatch-dot" style="background:var(--accent-pink)"></span>
-            </div>
-            <p class="card-name">AI 챗봇으로 만드는 토론 수업</p>
-            <p class="card-sub">중등 · 국어 / 사회</p>
-            <div class="card-meta"><span class="free">무료</span><span>40분 분량</span></div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-image">
-            <span class="placeholder" aria-hidden="true">&#127912;</span>
-            <span class="badge-promo">바로 사용</span>
-          </div>
-          <div class="card-body">
-            <div class="swatch-row" aria-hidden="true">
-              <span class="swatch-dot active" style="background:var(--accent-purple-soft)"></span>
-              <span class="swatch-dot" style="background:#111"></span>
-            </div>
-            <p class="card-name">이미지 생성 AI 미술 프로젝트</p>
-            <p class="card-sub">초등 · 미술</p>
-            <div class="card-meta"><span class="free">무료</span><span>2차시</span></div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-image">
-            <span class="placeholder" aria-hidden="true">&#128221;</span>
-            <span class="badge-promo">추천</span>
-          </div>
-          <div class="card-body">
-            <div class="swatch-row" aria-hidden="true">
-              <span class="swatch-dot active" style="background:#111"></span>
-              <span class="swatch-dot" style="background:var(--info)"></span>
-            </div>
-            <p class="card-name">AI로 자동 채점하는 서술형 평가</p>
-            <p class="card-sub">고등 · 공통</p>
-            <div class="card-meta"><span class="free">무료</span><span>워크시트 포함</span></div>
-          </div>
-        </article>
-
+    <!-- ======================= 수업 목표 ======================= -->
+    <section class="goal" aria-label="수업 목표">
+      <div class="goal-label">수업 목표</div>
+      <div>
+        <p class="goal-text">게임, 사진, 영상, 퀴즈, PPT 등 학교 수업에 필요한 컨텐츠를 스스로 만들고 창작할 수 있다.</p>
+        <div class="goal-tags">
+          <span class="goal-tag">게임</span>
+          <span class="goal-tag">사진</span>
+          <span class="goal-tag">영상</span>
+          <span class="goal-tag">퀴즈</span>
+          <span class="goal-tag">PPT</span>
+        </div>
       </div>
     </section>
 
-    <!-- ======================= 추천 콘텐츠 ======================= -->
-    <section class="section" id="featured" aria-label="추천 콘텐츠">
+    <!-- ======================= 2. 수업 자료 (슬라이드 덱) ======================= -->
+    <section class="section" id="deck" aria-label="수업 자료">
       <div class="section-head">
-        <h2 class="heading-xl">추천 콘텐츠</h2>
-        <a class="link-more" href="#">전체 보기</a>
+        <div>
+          <h2 class="heading-xl">말만 하면 다 만드는 수업 자료</h2>
+          <p class="card-sub" style="margin-top:8px">바이브 코딩 · 패들렛 ARCADE · 2차시 · 박만재</p>
+        </div>
+        <a class="link-more" href="https://gemini.google.com" target="_blank" rel="noopener">제미나이로 만들기</a>
       </div>
-      <div class="grid grid-3">
 
-        <article class="card">
-          <div class="card-image"><span class="placeholder" aria-hidden="true">&#128483;</span></div>
-          <div class="card-body">
-            <p class="card-name">프롬프트 한 줄로 만드는 학습지</p>
-            <p class="card-sub">전 학년 · 도구 활용</p>
-            <div class="card-meta"><span class="free">무료</span></div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-image"><span class="placeholder" aria-hidden="true">&#127908;</span></div>
-          <div class="card-body">
-            <p class="card-name">음성 AI로 만드는 듣기 평가</p>
-            <p class="card-sub">중등 · 영어</p>
-            <div class="card-meta"><span class="free">무료</span></div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-image"><span class="placeholder" aria-hidden="true">&#128202;</span></div>
-          <div class="card-body">
-            <p class="card-name">데이터로 배우는 AI 윤리</p>
-            <p class="card-sub">고등 · 정보</p>
-            <div class="card-meta"><span class="free">무료</span></div>
-          </div>
-        </article>
-
+      <!-- 챕터 칩 -->
+      <div class="chips" id="deck-chips" role="tablist" aria-label="목차">
+        <button class="chip active" data-go="0">시작</button>
+        <button class="chip" data-go="3">바이브 코딩 개념</button>
+        <button class="chip" data-go="12">기본 웹 앱 제작</button>
+        <button class="chip" data-go="24">프롬프트 고도화</button>
+        <button class="chip" data-go="32">심화 실습 (2차시)</button>
+        <button class="chip" data-go="46">패들렛 아케이드</button>
+        <button class="chip" data-go="60">부록</button>
       </div>
+
+      <!-- 슬라이드 뷰어 -->
+      <div class="viewer">
+        <button class="btn-icon paddle" id="prev" aria-label="이전 슬라이드">&#8249;</button>
+        <figure class="stage">
+          <img id="slide-img" src="assets/slides/slide-01.jpg" alt="수업 자료 슬라이드" />
+        </figure>
+        <button class="btn-icon paddle" id="next" aria-label="다음 슬라이드">&#8250;</button>
+      </div>
+      <div class="viewer-meta">
+        <span class="counter"><span id="cur">1</span> / <span id="total">63</span></span>
+        <a class="link-more" id="open-full" href="assets/slides/slide-01.jpg" target="_blank" rel="noopener">크게 보기</a>
+      </div>
+
+      <!-- 썸네일 레일 -->
+      <div class="thumb-rail" id="thumb-rail" aria-label="슬라이드 목록"></div>
     </section>
 
     <!-- ======================= 분야별로 살펴보기 (rail) ======================= -->
@@ -187,7 +144,7 @@
         </div>
         <div class="rail-tile tile-code">
           <span class="rail-label">코딩</span>
-          <a class="btn btn-on-image" href="#">살펴보기</a>
+          <a class="btn btn-on-image" href="#deck">살펴보기</a>
         </div>
         <div class="rail-tile tile-eval">
           <span class="rail-label">평가</span>
@@ -196,17 +153,17 @@
       </div>
     </section>
 
-    <!-- ======================= 최신 도구 (icon strip) ======================= -->
-    <section class="section" aria-label="최신 도구">
+    <!-- ======================= 자주 쓰는 AI 도구 ======================= -->
+    <section class="section" aria-label="자주 쓰는 AI 도구">
       <div class="section-head">
         <h2 class="heading-xl">자주 쓰는 AI 도구</h2>
       </div>
       <div class="icon-strip">
+        <a class="icon-card" href="https://gemini.google.com" target="_blank" rel="noopener"><span class="glyph">&#10024;</span><span class="icon-label">제미나이</span></a>
         <a class="icon-card" href="#"><span class="glyph">&#128172;</span><span class="icon-label">챗봇</span></a>
         <a class="icon-card" href="#"><span class="glyph">&#127912;</span><span class="icon-label">이미지 생성</span></a>
-        <a class="icon-card" href="#"><span class="glyph">&#127909;</span><span class="icon-label">영상 제작</span></a>
-        <a class="icon-card" href="#"><span class="glyph">&#127925;</span><span class="icon-label">음성·음악</span></a>
-        <a class="icon-card" href="#"><span class="glyph">&#128187;</span><span class="icon-label">코드</span></a>
+        <a class="icon-card" href="#deck"><span class="glyph">&#129513;</span><span class="icon-label">패들렛 아케이드</span></a>
+        <a class="icon-card" href="#"><span class="glyph">&#128187;</span><span class="icon-label">바이브 코딩</span></a>
         <a class="icon-card" href="#"><span class="glyph">&#128200;</span><span class="icon-label">데이터</span></a>
       </div>
     </section>
@@ -219,20 +176,20 @@
       <div class="benefit-grid">
         <article class="benefit-card benefit-a">
           <div class="benefit-copy">
-            <h3 class="heading-lg">수업 준비 시간을<br />절반으로</h3>
-            <a class="btn btn-on-image" href="#">자세히</a>
+            <h3 class="heading-lg">말만 하면<br />앱이 완성</h3>
+            <a class="btn btn-on-image" href="#deck">자세히</a>
           </div>
         </article>
         <article class="benefit-card benefit-b">
           <div class="benefit-copy">
-            <h3 class="heading-lg">학생 맞춤형<br />학습 자료</h3>
-            <a class="btn btn-on-image" href="#">자세히</a>
+            <h3 class="heading-lg">프롬프트를<br />단계별로</h3>
+            <a class="btn btn-on-image" href="#deck">자세히</a>
           </div>
         </article>
         <article class="benefit-card benefit-c">
           <div class="benefit-copy">
-            <h3 class="heading-lg">평가와 피드백을<br />더 빠르게</h3>
-            <a class="btn btn-on-image" href="#">자세히</a>
+            <h3 class="heading-lg">게임으로<br />즐기는 학습</h3>
+            <a class="btn btn-on-image" href="#deck">자세히</a>
           </div>
         </article>
       </div>
@@ -245,15 +202,14 @@
     <div class="footer-cols">
       <div class="footer-col">
         <h4>콘텐츠</h4>
-        <a href="#">초등</a>
-        <a href="#">중등</a>
-        <a href="#">고등</a>
-        <a href="#">분야별</a>
+        <a href="#deck">수업 자료</a>
+        <a href="#categories">분야별</a>
+        <a href="#">초·중·고</a>
       </div>
       <div class="footer-col">
         <h4>도움말</h4>
-        <a href="#">시작 가이드</a>
-        <a href="#">프롬프트 모음</a>
+        <a href="#guides">시작 가이드</a>
+        <a href="#deck">프롬프트 모음</a>
         <a href="#">자주 묻는 질문</a>
       </div>
       <div class="footer-col">
@@ -282,13 +238,71 @@
       var nav = document.querySelector('.primary-nav');
       var toggle = document.querySelector('.nav-toggle');
       if (toggle && nav) {
-        toggle.addEventListener('click', function () {
-          nav.classList.toggle('open');
-        });
+        toggle.addEventListener('click', function () { nav.classList.toggle('open'); });
         nav.querySelectorAll('.nav-links a').forEach(function (a) {
           a.addEventListener('click', function () { nav.classList.remove('open'); });
         });
       }
+    })();
+
+    // 슬라이드 뷰어
+    (function () {
+      var TOTAL = 63;
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      var src = function (n) { return 'assets/slides/slide-' + pad(n) + '.jpg'; };
+
+      var img = document.getElementById('slide-img');
+      var cur = document.getElementById('cur');
+      var full = document.getElementById('open-full');
+      var rail = document.getElementById('thumb-rail');
+      var chips = document.querySelectorAll('#deck-chips .chip');
+      var idx = 0; // 0-based
+
+      function render() {
+        var n = idx + 1;
+        img.src = src(n);
+        img.alt = '수업 자료 슬라이드 ' + n;
+        cur.textContent = n;
+        full.href = src(n);
+        // 활성 썸네일
+        rail.querySelectorAll('.thumb').forEach(function (t, i) {
+          t.classList.toggle('active', i === idx);
+        });
+        var active = rail.querySelector('.thumb.active');
+        if (active) active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+        // 활성 챕터 칩
+        var best = 0;
+        chips.forEach(function (c) { if (+c.dataset.go <= idx) best = +c.dataset.go; });
+        chips.forEach(function (c) { c.classList.toggle('active', +c.dataset.go === best); });
+      }
+      function go(n) { idx = (n + TOTAL) % TOTAL; render(); }
+
+      document.getElementById('prev').addEventListener('click', function () { go(idx - 1); });
+      document.getElementById('next').addEventListener('click', function () { go(idx + 1); });
+      chips.forEach(function (c) {
+        c.addEventListener('click', function () { go(+c.dataset.go); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') go(idx - 1);
+        if (e.key === 'ArrowRight') go(idx + 1);
+      });
+
+      // 썸네일 생성
+      for (var i = 1; i <= TOTAL; i++) {
+        (function (n) {
+          var b = document.createElement('button');
+          b.className = 'thumb';
+          b.setAttribute('aria-label', n + '쪽으로 이동');
+          var t = document.createElement('img');
+          t.loading = 'lazy';
+          t.src = src(n);
+          t.alt = '';
+          b.appendChild(t);
+          b.addEventListener('click', function () { go(n - 1); });
+          rail.appendChild(b);
+        })(i);
+      }
+      render();
     })();
   </script>
 

@@ -268,6 +268,107 @@ main { display: block; }
 .hero h1 { color: var(--on-primary); }
 .hero .hero-cta { margin-top: var(--sp-xl); display: flex; gap: var(--sp-md); flex-wrap: wrap; }
 
+/* ---------- Hero badge / sub ---------- */
+.gemini-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--canvas);
+  border-radius: var(--rounded-lg);
+  padding: 8px 16px;
+  margin-bottom: var(--sp-xl);
+}
+.gemini-badge img { height: 24px; width: auto; }
+.hero-sub {
+  margin-top: var(--sp-lg);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--on-primary);
+  max-width: 520px;
+}
+
+/* ---------- 수업 목표 ---------- */
+.goal {
+  margin-top: var(--sp-section);
+  background: var(--soft-cloud);
+  padding: var(--sp-section) var(--gutter);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--sp-xl);
+  align-items: start;
+}
+.goal .goal-label {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+  color: var(--ink);
+}
+.goal .goal-text { font-size: 24px; font-weight: 700; line-height: 1.4; color: var(--ink); }
+.goal .goal-tags { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+.goal-tag {
+  background: var(--canvas);
+  border-radius: var(--rounded-lg);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ---------- 챕터 칩 ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-bottom: var(--sp-xl); }
+.chip {
+  background: var(--canvas);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.chip.active { background: var(--ink); color: var(--on-primary); border-color: var(--ink); }
+
+/* ---------- 슬라이드 뷰어 ---------- */
+.viewer {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+}
+.viewer .paddle { flex: 0 0 auto; }
+.stage {
+  margin: 0;
+  flex: 1 1 auto;
+  background: var(--soft-cloud);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.stage img { width: 100%; height: 100%; object-fit: contain; }
+.viewer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sp-md);
+}
+.counter { font-size: 14px; font-weight: 600; color: var(--mute); }
+
+.thumb-rail {
+  display: flex;
+  gap: var(--sp-sm);
+  overflow-x: auto;
+  margin-top: var(--sp-lg);
+  padding-bottom: var(--sp-sm);
+}
+.thumb-rail::-webkit-scrollbar { height: 6px; }
+.thumb-rail::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: var(--rounded-full); }
+.thumb {
+  flex: 0 0 auto;
+  width: 132px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 2px solid transparent;
+  background: var(--soft-cloud);
+  overflow: hidden;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb.active { border-color: var(--ink); }
+
 /* ---------- Product / content card grid ---------- */
 .grid {
   display: grid;
@@ -431,6 +532,9 @@ main { display: block; }
   .display-campaign { font-size: 64px; }
   .section { padding-top: 32px; }
   .hero { margin-top: 32px; }
+  .goal { grid-template-columns: 1fr; gap: var(--sp-md); padding: 32px var(--gutter); }
+  .goal .goal-text { font-size: 20px; }
+  .thumb { width: 110px; }
 }
 
 @media (max-width: 768px) {
