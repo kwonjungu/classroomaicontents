@@ -382,13 +382,33 @@
       }
     })();
 
-    // 강의 섹션 펼치기 / 접기
+    // 강의 섹션 펼치기 / 접기 (내용 높이만큼 자동 확장)
     (function () {
       document.querySelectorAll('.lecture-toggle').forEach(function (btn) {
+        var section = btn.closest('.lecture');
+        var detail = section.querySelector('.lecture-detail');
+
+        // 펼쳐진 상태에서 이미지 로드로 높이가 늘어나도 잘리지 않게
+        detail.addEventListener('transitionend', function (e) {
+          if (e.propertyName === 'max-height' && section.classList.contains('open')) {
+            detail.style.maxHeight = 'none';
+          }
+        });
+
         btn.addEventListener('click', function () {
-          var section = btn.closest('.lecture');
-          var open = section.classList.toggle('open');
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          var willOpen = !section.classList.contains('open');
+          if (willOpen) {
+            section.classList.add('open');
+            detail.style.maxHeight = detail.scrollHeight + 'px';
+          } else {
+            // 'none' 상태였다면 현재 높이로 고정한 뒤 0으로 접기
+            detail.style.maxHeight = detail.scrollHeight + 'px';
+            requestAnimationFrame(function () {
+              section.classList.remove('open');
+              detail.style.maxHeight = '0px';
+            });
+          }
+          btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
         });
       });
     })();

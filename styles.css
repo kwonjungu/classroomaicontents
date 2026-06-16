@@ -397,7 +397,6 @@ main { display: block; }
   opacity: 0;
 }
 .lecture.open .lecture-detail {
-  max-height: 1200px;
   opacity: 1;
   margin-top: var(--sp-section);
 }
