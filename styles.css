@@ -484,6 +484,35 @@ main { display: block; }
 .key-text { margin-top: var(--sp-sm); font-size: 18px; line-height: 1.5; color: var(--charcoal); }
 .key-foot { margin-top: var(--sp-xl); font-size: 18px; font-weight: 700; line-height: 1.6; color: var(--ink); }
 
+/* 장면별 프롬프트 (줄마다 복사) */
+.prompt-list { display: flex; flex-direction: column; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+.prompt-row {
+  display: flex; align-items: flex-start; gap: var(--sp-md);
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  padding: var(--sp-md) var(--sp-lg);
+}
+.prompt-row .pnum {
+  flex: 0 0 auto;
+  font-weight: 700; color: var(--mute);
+  min-width: 22px;
+  padding-top: 2px;
+}
+.prompt-row .ptext { flex: 1 1 auto; font-size: 16px; line-height: 1.6; color: var(--ink); }
+.prompt-copy {
+  flex: 0 0 auto;
+  border: 1px solid var(--ink);
+  background: var(--canvas);
+  color: var(--ink);
+  border-radius: var(--rounded-lg);
+  padding: 6px 16px;
+  font-size: 14px; font-weight: 600;
+  white-space: nowrap;
+  transition: transform .12s ease, background .12s ease, color .12s ease;
+}
+.prompt-copy:active { transform: scale(0.96); }
+.prompt-copy.copied { background: var(--ink); color: var(--on-primary); }
+
 /* 믹스보드 도입 */
 .guide-mix { margin-top: var(--sp-section); }
 .guide-mix .mix-lead { font-size: 18px; line-height: 1.6; color: var(--charcoal); margin-bottom: var(--sp-lg); max-width: 640px; }

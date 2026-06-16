@@ -238,6 +238,19 @@
               <li>친구와 번갈아 한 장면씩 더해 이야기를 잇기</li>
               <li>완성한 장면을 라인아트로 바꿔 색칠 활동으로 활용하기</li>
             </ul>
+
+            <p class="guide-title" style="font-size:18px;margin-top:var(--sp-xl)">장면별 프롬프트 — 한 줄씩 복사해서 붙여넣기</p>
+            <p class="mix-lead" style="margin-top:var(--sp-sm)">같은 화풍과 등장인물이 이어지도록, 1번부터 순서대로 한 줄씩 복사해 만들어 보세요.</p>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pnum">1</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀(하늘색 원피스)가 햇살 가득한 학교 운동장에서 그네와 모래밭에서 친구들과 즐겁게 뛰노는 전경.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">2</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀(하늘색 원피스)가 운동장 풀밭에서 반짝이는 알을 발견하고 두 손을 모은 채 놀란 표정을 짓는 장면.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">3</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 반짝이던 알이 갈라지며 작고 귀여운 초록 아기 공룡이 빼꼼 나와, 갈색 단발 소녀와 눈을 마주치는 장면.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">4</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀와 초록 아기 공룡이 손과 앞발을 맞잡고 환하게 웃으며 친구가 되는 따뜻한 순간.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">5</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀가 미끄럼틀과 그네가 있는 놀이터를 초록 아기 공룡에게 신나게 소개하는 모습.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">6</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀와 초록 아기 공룡이 자동차와 신호등, 높은 빌딩이 있는 도시 거리를 신기한 표정으로 구경하는 장면.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">7</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 갈색 단발 소녀가 교실에서 칠판과 책을 보여주며 초록 아기 공룡에게 인간 세상의 공부를 알려주는 정겨운 장면.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pnum">8</span><span class="ptext">따뜻한 수채화·색연필 느낌의 동화책 삽화, 부드러운 파스텔 색감. 노을 지는 하늘 아래 갈색 단발 소녀와 초록 아기 공룡이 손을 잡고 집으로 걸어가는 정다운 뒷모습.</span><button class="prompt-copy">복사</button></div>
+            </div>
           </div>
         </div>
       </div>
@@ -426,6 +439,31 @@
           btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
         });
       });
+    })();
+
+    // 프롬프트 한 줄씩 복사
+    (function () {
+      document.querySelectorAll('.prompt-copy').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = btn.closest('.prompt-row').querySelector('.ptext').textContent.trim();
+          var done = function () {
+            btn.classList.add('copied');
+            var prev = btn.textContent;
+            btn.textContent = '복사됨';
+            setTimeout(function () { btn.classList.remove('copied'); btn.textContent = prev; }, 1200);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+          } else { fallback(text); done(); }
+        });
+      });
+      function fallback(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
     })();
   </script>
 
