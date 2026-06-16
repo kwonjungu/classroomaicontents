@@ -346,62 +346,40 @@ main { display: block; }
 }
 .gemini-cta .cta-notice strong { color: var(--ink); font-weight: 700; }
 
-/* ---------- 챕터 칩 ---------- */
-.chips { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-bottom: var(--sp-xl); }
-.chip {
-  background: var(--canvas);
-  color: var(--ink);
-  border: 1px solid var(--hairline);
-  border-radius: var(--rounded-lg);
-  padding: 8px 16px;
-  font-size: 16px;
-  font-weight: 600;
-}
-.chip.active { background: var(--ink); color: var(--on-primary); border-color: var(--ink); }
-
-/* ---------- 슬라이드 뷰어 ---------- */
-.viewer {
-  display: flex;
+/* ---------- 강의 섹션 ---------- */
+.lecture {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-section);
   align-items: center;
-  gap: var(--sp-md);
+  padding-top: var(--sp-section);
 }
-.viewer .paddle { flex: 0 0 auto; }
-.stage {
-  margin: 0;
-  flex: 1 1 auto;
-  background: var(--soft-cloud);
-  aspect-ratio: 16 / 9;
+.lecture.reverse .lecture-media { order: 2; }
+.lecture-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  color: var(--on-primary);
   overflow: hidden;
 }
-.stage img { width: 100%; height: 100%; object-fit: contain; }
-.viewer-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--sp-md);
+.lecture-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.lecture-no {
+  position: absolute;
+  right: var(--sp-xl);
+  bottom: var(--sp-sm);
+  font-family: var(--font-display);
+  font-size: 170px;
+  line-height: 0.8;
+  opacity: 0.2;
 }
-.counter { font-size: 14px; font-weight: 600; color: var(--mute); }
-
-.thumb-rail {
-  display: flex;
-  gap: var(--sp-sm);
-  overflow-x: auto;
-  margin-top: var(--sp-lg);
-  padding-bottom: var(--sp-sm);
+.lecture-kicker {
+  font-size: 14px; font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--mute);
+  margin-bottom: var(--sp-md);
 }
-.thumb-rail::-webkit-scrollbar { height: 6px; }
-.thumb-rail::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: var(--rounded-full); }
-.thumb {
-  flex: 0 0 auto;
-  width: 132px;
-  aspect-ratio: 16 / 9;
-  padding: 0;
-  border: 2px solid transparent;
-  background: var(--soft-cloud);
-  overflow: hidden;
-}
-.thumb img { width: 100%; height: 100%; object-fit: cover; }
-.thumb.active { border-color: var(--ink); }
+.lecture-copy h2 { font-size: 40px; font-weight: 700; line-height: 1.1; }
+.lecture-copy p { margin-top: var(--sp-md); font-size: 16px; line-height: 1.6; color: var(--charcoal); max-width: 460px; }
+.lecture-copy .btn { margin-top: var(--sp-xl); }
 
 /* ---------- Product / content card grid ---------- */
 .grid {
@@ -568,7 +546,10 @@ main { display: block; }
   .hero { margin-top: 32px; }
   .goal { grid-template-columns: 1fr; gap: var(--sp-md); padding: 32px var(--gutter); }
   .goal .goal-text { font-size: 20px; }
-  .thumb { width: 110px; }
+  .lecture { grid-template-columns: 1fr; gap: var(--sp-lg); }
+  .lecture.reverse .lecture-media { order: 0; }
+  .lecture-copy h2 { font-size: 30px; }
+  .lecture-no { font-size: 110px; }
 }
 
 @media (max-width: 768px) {
