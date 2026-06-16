@@ -312,6 +312,40 @@ main { display: block; }
   font-weight: 600;
 }
 
+/* ---------- Gemini 바로 가기 ---------- */
+.gemini-cta {
+  margin-top: var(--sp-section);
+  border: 1px solid var(--hairline);
+  padding: var(--sp-section) var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xl);
+  flex-wrap: wrap;
+}
+.gemini-cta .cta-logo { height: 32px; width: auto; }
+.gemini-cta .cta-copy { flex: 1 1 280px; }
+.gemini-cta .cta-copy h3 { font-size: 24px; font-weight: 700; line-height: 1.2; }
+.gemini-cta .cta-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-md);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+.notice-tag {
+  background: var(--canvas);
+  border: 1px solid var(--ink);
+  border-radius: var(--rounded-lg);
+  padding: 2px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.gemini-cta .cta-notice strong { color: var(--ink); font-weight: 700; }
+
 /* ---------- 챕터 칩 ---------- */
 .chips { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-bottom: var(--sp-xl); }
 .chip {
