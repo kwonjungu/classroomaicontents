@@ -423,18 +423,33 @@ main { display: block; }
 }
 
 /* ---------- 단계별 가이드 (사진 포함) ---------- */
-.guide { display: flex; flex-direction: column; gap: var(--sp-xl); margin: 0; padding: 0; }
+/* 좌 → 우 연표(타임라인) 배치 */
+.guide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-xl);
+  margin: 0; padding: 0;
+}
 .guide-step {
   list-style: none;
-  display: grid;
-  grid-template-columns: 5fr 6fr;   /* 텍스트 왼쪽, 사진 오른쪽으로 길게 */
-  gap: var(--sp-xl);
-  align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--canvas);
   border: 1px solid var(--hairline);
   padding: var(--sp-xl);
 }
-.guide-head { display: flex; gap: var(--sp-md); align-items: flex-start; margin-bottom: 0; }
+.guide-step:not(:last-child)::after {   /* 단계 사이 연결 화살표 */
+  content: "\2192";
+  position: absolute;
+  top: 42px; left: 100%;
+  margin-left: calc(var(--sp-xl) / 2);
+  transform: translate(-50%, -50%);
+  font-size: 28px; font-weight: 700; line-height: 1;
+  color: var(--mute);
+  z-index: 2;
+}
+.guide-head { display: flex; gap: var(--sp-md); align-items: flex-start; margin-bottom: var(--sp-lg); }
 .guide-no {
   flex: 0 0 auto;
   width: 36px; height: 36px;
@@ -447,14 +462,12 @@ main { display: block; }
 .guide-desc { margin-top: var(--sp-sm); font-size: 18px; line-height: 1.6; color: var(--charcoal); }
 .guide-desc strong { color: var(--ink); font-weight: 700; }
 .guide-shot {
-  margin: 0;
+  margin: var(--sp-lg) 0 0;
   background: var(--soft-cloud);
   border: 1px solid var(--hairline);
-  aspect-ratio: 16 / 10;            /* 박스 높이 통일 */
-  display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
-.guide-shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.guide-shot img { width: 100%; height: auto; display: block; }
 
 /* 프롬프트 핵심 정리 */
 .guide-key {
@@ -655,7 +668,8 @@ main { display: block; }
   .lecture-detail ul { grid-template-columns: 1fr; }
   .lecture-detail-inner { padding: 32px var(--gutter); }
   .key-grid { grid-template-columns: 1fr; gap: var(--sp-md); }
-  .guide-step { grid-template-columns: 1fr; gap: var(--sp-lg); }
+  .guide { grid-template-columns: 1fr; }
+  .guide-step:not(:last-child)::after { display: none; }
 }
 
 @media (max-width: 768px) {
