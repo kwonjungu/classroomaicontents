@@ -466,6 +466,12 @@ main { display: block; }
 .key-text { margin-top: var(--sp-sm); font-size: 18px; line-height: 1.5; color: var(--charcoal); }
 .key-foot { margin-top: var(--sp-xl); font-size: 18px; font-weight: 700; line-height: 1.6; color: var(--ink); }
 
+/* 믹스보드 도입 */
+.guide-mix { margin-top: var(--sp-section); }
+.guide-mix .mix-lead { font-size: 18px; line-height: 1.6; color: var(--charcoal); margin-bottom: var(--sp-lg); max-width: 640px; }
+.guide-mix .guide-shot { margin-bottom: var(--sp-lg); }
+.guide-mix .btn { margin-top: var(--sp-lg); }
+
 /* ---------- Product / content card grid ---------- */
 .grid {
   display: grid;
