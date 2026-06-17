@@ -479,6 +479,13 @@ main { display: block; }
   .note-cards { grid-template-columns: 1fr; }
 }
 
+/* 사고 수준 안내 — 중앙 정렬 묶음 */
+.thinking-block { max-width: 760px; margin: var(--sp-xl) auto 0; }
+.thinking-block > .mix-lead { text-align: center; }
+.thinking-block .guide-shot { margin-left: auto; margin-right: auto; }
+.thinking-block .key-grid { grid-template-columns: 1fr 1fr; }
+.thinking-block .key-foot { text-align: center; }
+
 /* 프롬프트 핵심 정리 */
 .guide-key {
   margin-top: var(--sp-section);
