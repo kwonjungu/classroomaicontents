@@ -479,6 +479,12 @@ main { display: block; }
   .note-cards { grid-template-columns: 1fr; }
 }
 
+/* 단계 예제 — 중앙 정렬 */
+.guide-mix.step-center { max-width: 760px; margin-left: auto; margin-right: auto; text-align: center; }
+.guide-mix.step-center .mix-lead { max-width: none; margin-left: auto; margin-right: auto; }
+.guide-mix.step-center .guide-shot { margin-left: auto; margin-right: auto; }
+.guide-mix.step-center .prompt-list { text-align: left; }
+
 /* 사고 수준 안내 — 중앙 정렬 묶음 */
 .thinking-block { max-width: 760px; margin: var(--sp-xl) auto 0; }
 .thinking-block > .mix-lead { text-align: center; }
