@@ -451,6 +451,45 @@
             <a class="btn btn-primary" href="https://gemini.google.com/share/4105ecfc8040" target="_blank" rel="noopener">수학 카드 게임 바로가기 &#8599;</a>
           </div>
 
+          <div class="guide-mix step-center">
+            <p class="mix-highlight">4단계</p>
+            <h3>만능 게임 만들기</h3>
+            <p class="mix-lead"><strong>만능 게임이란?</strong> 배우는 <strong>개념어</strong>와 간단한 <strong>성취기준</strong>을 넣고 아래 프롬프트를 붙여넣으면, 어떤 과목이든 빠르게 게임으로 복습할 수 있어요. 두더지 게임과 슈팅 게임 두 가지를 준비했어요.</p>
+            <div style="display:flex;gap:var(--sp-lg);justify-content:center;align-items:flex-end;flex-wrap:wrap;margin-top:var(--sp-lg)">
+              <figure class="guide-shot" style="margin:0;max-width:330px;flex:0 0 auto">
+                <img src="assets/guide/s3-07-mole-game.png" alt="두더지 잡기 AI 퀴즈 게임 예시" loading="lazy" />
+              </figure>
+              <figure class="guide-shot" style="margin:0;max-width:235px;flex:0 0 auto">
+                <img src="assets/guide/s3-08-shooting-game.png" alt="소수 덧셈·뺄셈 슈팅 게임 예시" loading="lazy" />
+              </figure>
+            </div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">1번 두더지</span><span class="ptext" style="white-space:pre-wrap">##핵심기능
+- 두더지 잡기 놀이를 하면서 점수를 얻게 됨
+- 두더지 잡기 놀이를 하다가 랜덤으로 문제가 나옴
+- 문제를 맞추면 점수를 얻게 됨
+- 총 10문제를 맞추면 게임 끝, 축하하는 화면
+
+##사용자 경험 흐름
+- 시작 버튼을 누르면 두더지 잡기 게임이 시작됨.
+- 오른쪽 위에는 내가 잡은 두더지 수X10만큼 점수가 올라감
+- 두더지를 잡다가 랜덤으로 문제가 나옴.
+- 문제는 객관식, 단답형 섞어서 나옴.
+- 문제를 맞추면 점수를 얻음
+- 총 10문제임
+- 끝나면 폭죽과 함께 칭찬, 응원의 문구 나오면서 게임 끝</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">2번 슈팅</span><span class="ptext" style="white-space:pre-wrap">슈팅게임으로 초등학생들이 [소수의 덧셈과 뺄셈] 단원을 복습할 수 있는 프로그램을 만들거야.
+HTML5 Canvas와 Vanilla JavaScript를 사용해서 탑다운(Top-down) 슈팅 게임의 기본 틀을 만들어줘. 단일 HTML 파일로 작성해줘.
+플레이어:화면 하단 중앙에 위치. 좌우 방향키로 이동하고, 스페이스바를 누르면 미사일이 발사되어 위로 날아감.
+적(Enemy):화면 상단에서 사각형 모양의 적들이 일정 시간마다 생성되어 아래로 천천히 내려옴.
+미사일이 적 사각형에 부딪히면 적과 미사일이 모두 사라지는 충돌 로직을 포함해줘. 전체 코드에 초보자도 이해할 수 있게 주석을 상세히 달아줘.
+정답인 적을 맞췄을 때:띵동 소리(합성음이나 시각 효과)와 함께 100점을 획득함. 화면의 모든 적이 사라지고, 즉시 새로운 소수 문제가 상단에 출제되며 새로운 적들이 생성됨.
+오답인 적을 맞췄을 때:쿵 하는 경고 효과와 함께 플레이어의 실드(체력, 기본 3개 제공)가 1개 감소함. 맞은 오답 적만 사라짐.
+적이 화면 하단 끝까지 통과했을 때:플레이어가 놓친 것이므로 실드가 1개 감소함.
+실드가 0이 되면 게임이 멈추고 화면 중앙에 "Game Over"와 "최종 점수"가 뜨며, 다시 시작할 수 있는 버튼을 만들어줘.</span><button class="prompt-copy">복사</button></div>
+            </div>
+          </div>
+
           <h3>이런 내용을 다뤄요</h3>
           <ul>
             <li>필요한 기능을 단계별로 설명하기</li>
