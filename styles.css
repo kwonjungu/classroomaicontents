@@ -859,8 +859,33 @@ main { display: block; }
 .file-card .btn { flex: 0 0 auto; }
 .arcade-source { font-size: 14px; color: var(--mute); margin-top: var(--sp-sm); }
 
+/* 빌드 → 완성 → 공유 실제 화면 시퀀스 (캡션 + 화살표) */
+.arcade-seq {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+  margin: var(--sp-lg) 0 var(--sp-md);
+}
+.seq-item { flex: 1 1 0; min-width: 200px; max-width: 320px; margin: 0; }
+.seq-item img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--rounded-md);
+  border: 1px solid var(--hairline-soft);
+}
+.seq-item figcaption {
+  margin-top: var(--sp-sm);
+  font-size: 14px; line-height: 1.5; color: var(--ash); text-align: center;
+}
+.seq-item figcaption strong { display: block; font-size: 15px; color: var(--ink); }
+.seq-arrow { align-self: center; flex: 0 0 auto; font-size: 24px; color: var(--mute); font-weight: 700; }
+
 @media (max-width: 920px) {
   .arcade-flow { flex-direction: column; }
   .flow-arrow { transform: rotate(90deg); }
   .arcade-files { grid-template-columns: 1fr; }
+  .arcade-seq { flex-direction: column; align-items: center; }
+  .seq-item { max-width: 420px; width: 100%; }
+  .seq-arrow { transform: rotate(90deg); }
 }
