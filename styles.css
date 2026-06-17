@@ -885,13 +885,14 @@ main { display: block; }
 .seq-item figcaption strong { display: block; font-size: 15px; color: var(--ink); }
 .seq-arrow { align-self: center; flex: 0 0 auto; font-size: 24px; color: var(--mute); font-weight: 700; }
 
-/* 유튜브 링크로 만들기 — 반응형 임베드 3종 */
+/* 유튜브 링크로 만들기 — 반응형 임베드 3종 + 링크 복사 */
 .yt-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-md);
+  gap: var(--sp-lg);
   margin: var(--sp-lg) 0 var(--sp-sm);
 }
+.yt-item { display: flex; flex-direction: column; gap: var(--sp-sm); min-width: 0; }
 .yt-embed {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -903,6 +904,12 @@ main { display: block; }
   position: absolute; inset: 0;
   width: 100%; height: 100%; border: 0;
 }
+.yt-link { align-items: center; gap: var(--sp-sm); padding: var(--sp-sm) var(--sp-md); }
+.yt-link .ptext {
+  font-size: 13px; line-height: 1.4; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.yt-link .prompt-copy { padding: 5px 12px; font-size: 13px; }
 
 @media (max-width: 920px) {
   .yt-grid { grid-template-columns: 1fr; }
