@@ -285,6 +285,34 @@
               <div class="prompt-row"><span class="pcat">학습 자료</span><span class="ptext">물의 순환을 설명하는 깔끔한 교육용 다이어그램을 만들어줘. 증발·응결·강수 단계에 한글 라벨을 달고, 단순한 플랫 일러스트와 화살표로 흐름을 표시해줘.</span><button class="prompt-copy">복사</button></div>
             </div>
           </div>
+
+          <div class="guide-mix">
+            <p class="mix-highlight">✏️ 다 같이 따라 만들기</p>
+            <h3>믹스보드 실습 3 &middot; 내 캐릭터로 여러 버전 만들기</h3>
+            <p class="mix-lead">아래 픽셀 캐릭터를 다운로드해 믹스보드에 올린 뒤, <strong>라인아트 색칠 도안 · 스티커 세트 · 실사 배경 합성</strong> 세 가지 버전으로 변신시켜 보세요.</p>
+
+            <div class="practice-download">
+              <figure class="guide-shot portrait">
+                <img src="assets/guide/s2-07-character.png" alt="실습용 픽셀 캐릭터 원본 — 분홍·연두 머리, 7번 운동복" loading="lazy" />
+              </figure>
+              <a class="btn btn-primary force-download" href="assets/guide/s2-07-character.png" download="실습-캐릭터.png">캐릭터 이미지 내려받기 ↓</a>
+            </div>
+
+            <p class="guide-title" style="font-size:18px;margin-top:var(--sp-xl)">완성 목표 — 이렇게 바꿔 봐요</p>
+            <p class="mix-lead" style="margin-top:var(--sp-sm)">원본 → 라인아트 색칠 도안 → 표정 4종 스티커 세트 → 가을 운동장 실사 합성 순서로 만들어 보세요.</p>
+            <figure class="guide-shot">
+              <img src="assets/guide/s2-08-versions.png" alt="원본 · 라인아트 · 스티커 세트 · 가을 배경 합성 네 가지 버전 예시" loading="lazy" />
+            </figure>
+
+            <p class="guide-title" style="font-size:18px;margin-top:var(--sp-xl)">버전별 프롬프트 — 한 줄씩 복사해서 붙여넣기</p>
+            <p class="mix-lead" style="margin-top:var(--sp-sm)">다운로드한 캐릭터 사진을 믹스보드에 올린 뒤, 아래 프롬프트를 한 줄씩 복사해 붙여넣어 보세요.</p>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">라인아트</span><span class="ptext">이 캐릭터를 검은 외곽선만 있는 깔끔한 라인아트 색칠 도안으로 바꿔줘. 색은 모두 빼고 굵고 선명한 선으로, 흰 배경의 A4 세로 형태로 만들어줘.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">스티커 세트</span><span class="ptext">이 캐릭터를 귀여운 다이컷 스티커 세트로 만들어줘. 굵은 흰색 테두리, 표정 4종(웃음·놀람·윙크·하트), 산호빛 배경 위에 작은 별 장식을 함께 넣어줘.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">실사 배경</span><span class="ptext">이 캐릭터를 가을 단풍이 가득 깔린 학교 운동장에 자연스럽게 세워줘. 배경은 실제 사진처럼 사실적으로, 캐릭터의 픽셀 스타일은 그대로 유지하고 빛과 그림자도 배경과 어울리게.</span><button class="prompt-copy">복사</button></div>
+            </div>
+            <p class="mix-lead" style="margin-top:var(--sp-lg)">잘 됐다면 머리색·옷 번호·표정·배경(봄꽃, 우주, 도서관 …)을 바꿔 <strong>나만의 버전</strong>을 더 만들어 보세요.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -470,6 +498,28 @@
             });
           }
           btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        });
+      });
+    })();
+
+    // 다운로드 버튼: 새 탭에서 열리지 않고 즉시 파일로 저장되도록 강제
+    (function () {
+      document.querySelectorAll('a.force-download').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var url = link.getAttribute('href');
+          var filename = link.getAttribute('download') || url.split('/').pop();
+          fetch(url, { cache: 'no-store' })
+            .then(function (res) { return res.blob(); })
+            .then(function (blob) {
+              var blobUrl = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = blobUrl; a.download = filename;
+              document.body.appendChild(a); a.click();
+              document.body.removeChild(a);
+              setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 1000);
+            })
+            .catch(function () { window.location.href = url; });
         });
       });
     })();

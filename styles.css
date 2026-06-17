@@ -524,6 +524,21 @@ main { display: block; }
 .prompt-copy:active { transform: scale(0.96); }
 .prompt-copy.copied { background: var(--ink); color: var(--on-primary); }
 
+/* 실습 다운로드 카드 (캐릭터 원본 + 다운로드 버튼) */
+.practice-download {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-md);
+  margin: var(--sp-lg) 0 var(--sp-xl);
+}
+.practice-download .guide-shot {
+  margin: 0;
+  max-width: 320px;
+  width: 100%;
+}
+.practice-download .btn { margin-top: 0; }
+
 /* 믹스보드 도입 */
 .guide-mix { margin-top: var(--sp-section); }
 .mix-highlight {
