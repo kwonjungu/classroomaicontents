@@ -868,9 +868,11 @@ main { display: block; }
   flex-wrap: wrap;
   margin: var(--sp-lg) 0 var(--sp-md);
 }
-.seq-item { flex: 1 1 0; min-width: 200px; max-width: 320px; margin: 0; }
+.seq-item { flex: 1 1 0; min-width: 0; max-width: 300px; margin: 0; }
 .seq-item img {
-  width: 100%; height: auto; display: block;
+  width: 100%; height: 190px; display: block;
+  object-fit: contain;
+  background: var(--soft-cloud);
   border-radius: var(--rounded-md);
   border: 1px solid var(--hairline-soft);
 }
@@ -907,5 +909,6 @@ main { display: block; }
   .arcade-files { grid-template-columns: 1fr; }
   .arcade-seq { flex-direction: column; align-items: center; }
   .seq-item { max-width: 420px; width: 100%; }
+  .seq-item img { height: auto; object-fit: initial; background: none; }
   .seq-arrow { transform: rotate(90deg); }
 }
