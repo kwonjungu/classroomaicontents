@@ -467,6 +467,13 @@ main { display: block; }
 .guide-shot.sm { max-width: 340px; margin-top: var(--sp-md); }
 .guide-shot.md { max-width: 560px; margin-top: var(--sp-md); }
 
+/* 이미지 + 설명을 좌우로 가볍게 배치 */
+.guide-split { display: flex; gap: var(--sp-xl); align-items: center; margin-top: var(--sp-lg); }
+.guide-split .guide-shot { margin-top: 0; flex: 0 0 auto; }
+.guide-split .split-copy { flex: 1 1 0; min-width: 0; }
+.guide-split .split-copy .mix-lead { margin-bottom: 0; }
+@media (max-width: 768px) { .guide-split { flex-direction: column; align-items: stretch; } }
+
 /* 프롬프트 핵심 정리 */
 .guide-key {
   margin-top: var(--sp-section);
