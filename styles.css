@@ -484,6 +484,9 @@ main { display: block; }
 .guide-mix.step-center .mix-lead { max-width: none; margin-left: auto; margin-right: auto; }
 .guide-mix.step-center .guide-shot { margin-left: auto; margin-right: auto; }
 .guide-mix.step-center .prompt-list { text-align: left; }
+.prompt-list.two-col { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+.prompt-list.two-col .prompt-row { align-items: flex-start; }
+@media (max-width: 768px) { .prompt-list.two-col { grid-template-columns: 1fr; } }
 
 /* 사고 수준 안내 — 중앙 정렬 묶음 */
 .thinking-block { max-width: 760px; margin: var(--sp-xl) auto 0; }
