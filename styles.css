@@ -675,6 +675,7 @@ main { display: block; }
 .tile-code  { background: linear-gradient(160deg, #1e2a52, #0c1124); }
 .tile-eval  { background: linear-gradient(160deg, #2a2336, #14101c); }
 .tile-notebook { background: linear-gradient(160deg, #3a2a12, #1c1206); }
+.tile-flow { background: linear-gradient(160deg, #2b2b2b, #000); }
 
 /* 미션 학년·주제 드롭다운 */
 .mission-controls { display: flex; flex-direction: column; gap: 6px; }
