@@ -674,6 +674,7 @@ main { display: block; }
 .tile-video { background: linear-gradient(160deg, var(--accent-teal), #07343b); }
 .tile-code  { background: linear-gradient(160deg, #1e2a52, #0c1124); }
 .tile-eval  { background: linear-gradient(160deg, #2a2336, #14101c); }
+.tile-notebook { background: linear-gradient(160deg, #3a2a12, #1c1206); }
 
 /* ---------- Icon strip (최신 도구) ---------- */
 .icon-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-sm); }
