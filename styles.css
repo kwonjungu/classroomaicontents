@@ -676,6 +676,17 @@ main { display: block; }
 .tile-eval  { background: linear-gradient(160deg, #2a2336, #14101c); }
 .tile-notebook { background: linear-gradient(160deg, #3a2a12, #1c1206); }
 
+/* 미션 학년·주제 드롭다운 */
+.mission-controls { display: flex; flex-direction: column; gap: 6px; }
+.mission-controls label { font-size: 14px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+.mission-select {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--hairline-soft); border-radius: var(--rounded-md);
+  background: #fff; color: var(--ink); font-size: 15px; font-family: inherit;
+  cursor: pointer;
+}
+.mission-select:focus { outline: 2px solid var(--accent-teal); outline-offset: 1px; }
+
 /* ---------- Icon strip (최신 도구) ---------- */
 .icon-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-sm); }
 .icon-card {
