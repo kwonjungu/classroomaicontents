@@ -362,6 +362,8 @@ main { display: block; }
 .deck-tab:hover { background: var(--charcoal); color: var(--on-primary); }
 .utility-bar a.deck-tab { color: var(--on-primary); }
 .deck-tab-pdf { font-weight: 700; }
+.deck-tab-padlet { background: var(--charcoal); }
+.deck-tab-padlet:hover { background: var(--ink); }
 
 .nav-actions .nav-deck { font-size: 14px; padding: 8px 18px; margin-right: var(--sp-xs); }
 
@@ -917,6 +919,14 @@ body.deck-open { overflow: hidden; }
 
 @media (max-width: 768px) {
   :root { --gutter: 20px; }
+  .utility-bar .shell {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 36px;
+    gap: var(--sp-sm) var(--sp-md);
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
   .nav-links, .search-pill { display: none; }
   .nav-toggle { display: inline-flex; }
   .nav-actions { margin-left: auto; }
