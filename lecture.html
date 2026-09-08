@@ -926,6 +926,8 @@ break-after:page;page-break-after:always}
 
   layout();
   document.getElementById('cnt').textContent = '1 / ' + frames.length;
+  /* #present 로 열면 곧바로 발표 모드 */
+  if (location.hash === '#present') setPresent(true);
 })();
 </script>
 </body></html>
