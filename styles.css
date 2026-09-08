@@ -346,6 +346,75 @@ main { display: block; }
 }
 .gemini-cta .cta-notice strong { color: var(--ink); font-weight: 700; }
 
+/* ---------- 강의안 보기 ---------- */
+.deck-tab { font-weight: 700; }
+
+.deck-cta {
+  margin-top: var(--sp-section);
+  background: var(--ink);
+  color: var(--on-primary);
+  border-radius: var(--rounded-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+.deck-shot { position: relative; display: block; min-height: 300px; }
+.deck-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.deck-copy {
+  padding: var(--sp-section) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.deck-kicker {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: var(--sp-md);
+}
+.deck-copy h2 {
+  font-family: var(--font-display);
+  font-size: 46px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+.deck-lead {
+  margin-top: var(--sp-md);
+  font-size: 17px;
+  line-height: 1.65;
+  color: #d6d6d8;
+}
+.deck-lead strong { color: var(--canvas); font-weight: 700; }
+.deck-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-md);
+  margin-top: var(--sp-xl);
+}
+.deck-cta .btn-primary { background: var(--canvas); color: var(--ink); }
+.deck-cta .btn-secondary {
+  background: transparent;
+  color: var(--canvas);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+.deck-cta .btn-secondary:hover { box-shadow: inset 0 0 0 1px var(--canvas); }
+
+@media (max-width: 900px) {
+  .deck-cta { grid-template-columns: 1fr; }
+  .deck-shot { min-height: 0; aspect-ratio: 16 / 9; }
+  .deck-copy { padding: var(--sp-xxl) var(--sp-xl); }
+  .deck-copy h2 { font-size: 34px; }
+}
+
 /* ---------- 강의 섹션 (아코디언) ---------- */
 .lecture {
   padding-top: var(--sp-section);
