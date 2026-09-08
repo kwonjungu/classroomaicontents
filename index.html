@@ -1582,6 +1582,22 @@ HTML5 Canvas와 Vanilla JavaScript를 사용해서 탑다운(Top-down) 슈팅 �
     })();
   </script>
 
+  <!-- ======================= 강의안 잠금 ======================= -->
+  <div class="deck-gate" id="deckGate" hidden>
+    <div class="deck-gate-card" role="dialog" aria-modal="true" aria-labelledby="deckGateTitle">
+      <h3 id="deckGateTitle">연수 번호를 입력해 주세요</h3>
+      <p>강의안 보기와 PDF 내려받기는 연수 참가자용이에요.</p>
+      <form id="deckGateForm">
+        <input id="deckGateInput" type="password" inputmode="numeric" autocomplete="off" placeholder="번호 입력" aria-label="연수 번호" />
+        <p class="deck-gate-err" id="deckGateErr" hidden>번호가 맞지 않아요.</p>
+        <div class="deck-gate-actions">
+          <button type="button" class="btn btn-secondary" id="deckGateCancel">취소</button>
+          <button type="submit" class="btn btn-primary">확인</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ======================= 강의안 바로 보기 ======================= -->
   <div class="deck-view" id="deckView" hidden>
     <div class="deck-view-bar">
@@ -1594,6 +1610,59 @@ HTML5 Canvas와 Vanilla JavaScript를 사용해서 탑다운(Top-down) 슈팅 �
   </div>
 
   <script>
+    // 강의안 잠금 — 연수 번호를 넣어야 보기·내려받기가 열린다.
+    // 정적 사이트의 가벼운 문지기일 뿐 실제 접근 통제가 아니다(파일 주소를 직접 치면 받아진다).
+    var deckGate = (function () {
+      var CODE = '1111';
+      var KEY = 'deckUnlocked';
+      var gate = document.getElementById('deckGate');
+      var form = document.getElementById('deckGateForm');
+      var input = document.getElementById('deckGateInput');
+      var err = document.getElementById('deckGateErr');
+      var pending = null;
+
+      function unlocked() {
+        try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; }
+      }
+      function remember() {
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      }
+      function show() {
+        err.hidden = true;
+        input.value = '';
+        gate.hidden = false;
+        document.body.classList.add('deck-open');
+        input.focus();
+      }
+      function hide() {
+        gate.hidden = true;
+        document.body.classList.remove('deck-open');
+        pending = null;
+      }
+      /** 잠겨 있으면 번호를 받고, 통과하면 run() 을 실행한다. */
+      function guard(run) {
+        if (unlocked()) { run(); return true; }
+        pending = run;
+        show();
+        return false;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value.trim() !== CODE) { err.hidden = false; input.select(); return; }
+        remember();
+        var run = pending;
+        hide();
+        if (run) run();
+      });
+      document.getElementById('deckGateCancel').addEventListener('click', hide);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !gate.hidden) hide();
+      });
+
+      return { guard: guard, unlocked: unlocked };
+    })();
+
     // 강의안 바로 보기 — 페이지를 떠나지 않고 겹쳐서 열기
     (function () {
       var view = document.getElementById('deckView');
@@ -1613,14 +1682,29 @@ HTML5 Canvas와 Vanilla JavaScript를 사용해서 탑다운(Top-down) 슈팅 �
 
       document.querySelectorAll('a[data-deck]').forEach(function (a) {
         a.addEventListener('click', function (e) {
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // 새 탭으로 열기는 그대로
           e.preventDefault();
-          open();
+          var newTab = e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1;
+          deckGate.guard(function () {
+            if (newTab) window.open(a.getAttribute('href'), '_blank', 'noopener');
+            else open();
+          });
         });
       });
       document.getElementById('deckViewX').addEventListener('click', close);
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !view.hidden) close();
+      });
+    })();
+
+    // 강의안 PDF 내려받기도 같은 번호로 잠근다.
+    (function () {
+      document.querySelectorAll('a[href$="강의안_말로만드는수업자료.pdf"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          if (deckGate.unlocked()) return;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          deckGate.guard(function () { a.click(); });
+        }, true);
       });
     })();
   </script>

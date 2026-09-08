@@ -367,6 +367,49 @@ main { display: block; }
 
 .nav-actions .nav-deck { font-size: 14px; padding: 8px 18px; margin-right: var(--sp-xs); }
 
+/* 강의안 잠금 — 연수 번호 입력 */
+.deck-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-lg);
+  background: rgba(17, 17, 17, 0.72);
+}
+.deck-gate[hidden] { display: none; }
+.deck-gate-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--canvas);
+  border-radius: var(--rounded-md);
+  padding: var(--sp-xl);
+  text-align: center;
+}
+.deck-gate-card h3 { margin: 0 0 var(--sp-xs); font-size: 20px; }
+.deck-gate-card p { margin: 0 0 var(--sp-lg); font-size: 14px; color: var(--mute); }
+.deck-gate-card input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-md);
+  padding: 0 var(--sp-md);
+  font: inherit;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0.3em;
+}
+.deck-gate-card input:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+.deck-gate-err { margin: var(--sp-sm) 0 0 !important; color: #c0392b; font-size: 13px; }
+.deck-gate-err[hidden] { display: none; }
+.deck-gate-actions {
+  display: flex;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-lg);
+}
+.deck-gate-actions .btn { flex: 1 1 0; justify-content: center; }
+
 /* 강의안 겹쳐 보기 */
 .deck-view {
   position: fixed;
