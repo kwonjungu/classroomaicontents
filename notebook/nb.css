@@ -1,0 +1,21 @@
+/* 노트북 LM 총정리 편 — myfirstaigent 스타일 위에 덧붙이는 것만 */
+.hwp-chip { display: inline-block; background: var(--ink); color: #fff; border-radius: 999px; padding: 1px 10px; font-size: 12px; font-weight: 800; vertical-align: 2px; margin-left: 4px; white-space: nowrap; }
+.hwp-callout { display: flex; gap: 20px; align-items: center; background: var(--ink); color: #fff; border-radius: 16px; padding: 22px 26px; margin: 28px 0; }
+.hwp-callout .hwp-big { font-family: var(--font-display, "Black Han Sans"), sans-serif; font-size: 44px; line-height: 1; flex: 0 0 auto; background: #fff; color: var(--ink); border-radius: 12px; padding: 10px 14px; }
+.hwp-callout p { margin: 2px 0; color: #ddd; font-size: 15px; line-height: 1.6; }
+.hwp-callout .hwp-h { color: #fff; font-size: 20px; font-weight: 800; }
+.hwp-callout .hwp-fmt { font-size: 13px; color: #aaa; word-break: keep-all; }
+.hwp-callout .hwp-fmt b { color: #fff; }
+.shot-empty > div { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; background: var(--soft-cloud); border: 2px dashed var(--hairline); border-radius: 12px; color: var(--mute); font-weight: 700; }
+.shot-cap { font-size: 13px; color: var(--mute); margin-top: 6px; line-height: 1.5; }
+.pstep-shots.n1 { grid-template-columns: minmax(0, 760px); }
+.track-grid { margin: 0 0 32px; }
+.credit { margin-top: 32px; font-size: 13px; color: var(--mute); line-height: 1.6; }
+.cmp-wrap { overflow-x: auto; }
+@media (max-width: 640px) {
+  .hwp-callout { flex-direction: column; align-items: flex-start; padding: 18px; }
+  .hwp-callout .hwp-big { font-size: 32px; }
+  .pstep-shots.n2, .pstep-shots.n3 { grid-template-columns: 1fr; }
+}
+.pcat { display: inline-block; font-size: 12px; font-weight: 800; background: var(--ink); color: #fff; border-radius: 999px; padding: 2px 10px; margin: 0 8px 6px 0; vertical-align: 1px; }
+.guide-desc a { text-decoration: underline; font-weight: 700; }
