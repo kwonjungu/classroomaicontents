@@ -28,7 +28,30 @@ TILES = ["tile-notebook", "tile-write", "tile-eval", "tile-image", "tile-code", 
 SHOT_CAP = {"01_home": "노트북 첫 화면", "03_upload_formats": "올릴 수 있는 형식 (hwp·hwpx 포함, xlsx 없음)",
             "04_citation": "답마다 붙는 인용 번호", "05_trap_answer": "함정 질문: 자료에 없다고 답함",
             "06_label": "라벨로 소스 나누기", "07_slide": "결과 보고 슬라이드", "08_infographic": "실측 인포그래픽 — 상위 점수가 부풀려짐(4.2~4.4 표시, 실제 4.16)",
-            "09_datatable_sheet": "데이터 표 → 구글 시트", "10_form": "구글 폼 퀴즈"}
+            "09_datatable_sheet": "데이터 표 → 구글 시트", "10_form": "구글 폼 퀴즈",
+            "b1_video_dialog": "동영상 맞춤설정 — 짧은 버전(세로)·설명 동영상, 추천 주제, 맞춤 주제",
+            "b1_video_explain": "예시 정답 · 설명 동영상 7분 19초 (종이공예 장면 + 교과서 쪽을 근거로 보여 줌)",
+            "b1_video_short": "예시 정답 · 짧은 버전 1분 8초 (세로, 한글 자막) — 제목은 '15일', 장면은 '7일'로 어긋남",
+            "b1_infographic": "예시 정답 · 옛날/오늘날 대조 인포그래픽",
+            "b1_mindmap": "예시 정답 · 마인드맵 (교과서에 없는 의식주·통신 가지까지 만듦 → 원문 확인)",
+            "b2_mindmap_design": "예시 정답 · 나노바나나로 다듬은 마인드맵 (글자 깨짐 있음 → 확인 후 사용)",
+            "b2_character": "예시 정답 · 캐릭터 세트 (단발머리·파란 셔츠)",
+            "b3_outline": "예시 정답 · 개요 — '의식주·통신은 자료에 없다'며 교통 중심으로 짬",
+            "b3_slide": "예시 정답 · 캐릭터 세트를 소스로 넣어 만든 슬라이드 (오른쪽 아래 단색 유지)",
+            "b4_edit": "슬라이드 [수정] → 'N번 슬라이드 변경'에 4단계 프롬프트",
+            "b4_result": "예시 정답 · 제목 '옛날의 교통수단', 가마 설명 추가 (수정본은 (2)로 따로 저장)",
+            "b5_style_minimal": "예시 정답 · 미니멀 카드 스타일 (세로)",
+            "goe_privacy": "goe 계정 Gemini 화면 아래 안내: 채팅은 Gemini 모델 개선에 사용되지 않음"}
+EXTRA = {("06", 1): ["b1_video_dialog", "b1_video_explain", "b1_video_short", "b1_infographic", "b1_mindmap"],
+         ("06", 2): ["b2_mindmap_design", "b2_character"],
+         ("06", 3): ["b3_outline", "b3_slide"],
+         ("06", 4): ["b4_edit", "b4_result"],
+         ("06", 5): ["b5_style_minimal"]}
+EXNOTE = {("06", 1): "예시 정답(goe 계정, 2026. 10. 13.): 동영상은 기본값이 <strong>짧은 버전(세로)</strong>이에요 — 가로 설명 영상은 <strong>설명 동영상</strong>을 골라요. 설명 동영상은 10분 남짓 걸렸어요. 마인드맵은 교과서(교통 단원)에 없는 <strong>의식주·통신 가지</strong>까지 만들었어요 — 프롬프트가 요구하면 작업실 결과물은 소스 밖 내용을 채울 수 있어요.",
+          ("06", 2): "예시 정답: Gemini 앱 <strong>임시 채팅</strong>에서 만들었어요(대화 기록 안 남음). 다듬은 마인드맵은 보기 좋지만 <strong>글자가 깨진 곳</strong>이 있어요. 캐릭터 세트는 3×3 칸이 정확하지 않을 때가 있어 다시 요청해요.",
+          ("06", 3): "예시 정답: 채팅 개요는 <strong>'의식주·통신 사례는 자료에 직접 다루어지지 않아 교통 중심으로 짰다'</strong>고 밝혔어요 — 근거로 답하는 노트북의 모습. 캐릭터 세트 PNG를 소스로 올리고 ②를 넣으니 모든 장에 그 캐릭터가 나오고 오른쪽 아래 단색도 지켜졌어요(덱 제목만 영어로 붙어 바꿨어요).",
+          ("06", 4): "예시 정답: 슬라이드 보기에서 <strong>[수정]</strong> → 고칠 장을 고르고 프롬프트 → <strong>수정된 자료 생성</strong>. 몇 분 뒤 수정본이 <strong>(2)</strong>로 따로 생겨요.",
+          ("06", 5): "예시 정답: 교과서의 '교통 문제점과 해결 노력'을 미니멀 카드(세로)로 만든 결과예요."}
 
 
 def photo(key):
@@ -214,6 +237,7 @@ CMP = mix("💬 → 📚 비교", "일반 Gemini와 무엇이 다를까요?",
           ]))
 SAFE = ('<div class="guide-key"><h3>업무에 써도 될까요?</h3><p class="key-lead">goe <strong>학교 계정</strong>은 올린 자료와 대화가 AI 학습에 쓰이지 않고 비공개로 유지된다고 안내돼요.</p>'
         + key_grid([("학교 계정", "goe.go.kr로 로그인 — <strong>학습에 안 쓰임</strong>"), ("개인정보", "학생 실명·연락처는 <strong>지우고</strong> 올리기"), ("공유", "공유 링크를 받은 사람은 <strong>소스와 대화를 봐요</strong>")])
+        + '<div class="pstep-shots n1">' + photo("goe_privacy") + '</div>'
         + '</div>')
 HABIT = ('<div class="guide-key"><h3>할루시네이션 0이 아니라, 확인하는 습관</h3><p class="key-lead">노트북은 지어내는 일을 <strong>크게 줄여요</strong>. 그래도 <strong>숫자·날짜·쪽 번호는 사람이 확인</strong>해요.</p>'
          + key_grid([("채팅 답", "실측에서 <strong>정확</strong> — 설문 평균·학폭 기한·인사 조항"), ("작업실 그림", "인포그래픽 숫자가 <strong>부풀려진</strong> 적 있어요"), ("쪽 번호", "데이터 표의 '근거 쪽'이 <strong>실제와 달랐어요</strong>")])
@@ -316,6 +340,9 @@ CIRCLE = "①②③④⑤⑥⑦⑧⑨"
 for k, (no, folder, title, nav, lead, steps) in enumerate(P):
     out = []
     for j, (gt, gd, prs, keys) in enumerate(steps):
+        keys = list(keys) + EXTRA.get((no, j), [])
+        if (no, j) in EXNOTE:
+            gd = (gd or "") + f'</p><p class="guide-desc ex-answer">✅ {EXNOTE[(no, j)]}'
         shots = "".join(photo(x) for x in keys)
         out.append(f'<div class="pstep"><div class="pstep-head"><span class="guide-no">{j+1}</span><h3>{E(gt)}</h3></div>'
                    + (f'<p class="guide-desc">{gd}</p>' if gd else "")
