@@ -1123,3 +1123,34 @@ body.deck-open { overflow: hidden; }
   .seq-item img { height: auto; object-fit: initial; background: none; }
   .seq-arrow { transform: rotate(90deg); }
 }
+
+/* ---------- 서브 페이지 배너 (노트북 LM 심화편) ---------- */
+.sub-banner {
+  margin-top: var(--sp-lg);
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: var(--sp-sm) var(--sp-md);
+  background: var(--soft-cloud);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  padding: 14px 24px;
+  color: var(--ink); text-decoration: none;
+  transition: background .15s ease;
+}
+.sub-banner:hover { background: var(--hairline-soft); }
+.sub-banner .sub-tag {
+  background: var(--info); color: var(--on-primary);
+  border-radius: var(--rounded-full);
+  padding: 3px 12px; font-size: 12px; font-weight: 800; letter-spacing: .04em;
+}
+.sub-banner .sub-title { font-size: 18px; font-weight: 800; }
+.sub-banner .sub-desc { font-size: 15px; color: var(--charcoal); flex: 1 1 260px; min-width: 0; }
+.sub-banner .sub-go { margin-left: auto; font-size: 22px; font-weight: 700; }
+.sub-inline-link {
+  display: inline-block; margin-top: var(--sp-md);
+  font-size: 16px; font-weight: 700; color: var(--info); text-decoration: none;
+}
+.sub-inline-link:hover { text-decoration: underline; }
+@media (max-width: 599px) {
+  .sub-banner { padding: 12px 16px; border-radius: var(--rounded-sm); }
+  .sub-banner .sub-desc { flex-basis: 100%; }
+}

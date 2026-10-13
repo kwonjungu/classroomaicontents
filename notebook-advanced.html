@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>노트북 LM 심화편</title>
+  <meta name="description" content="지어내지 않는 AI, 근거를 대는 AI — 학교 규정·공문서 지침·매뉴얼로 만드는 업무용 Gemini 노트북(노트북 LM) 90분 실습." />
+  <!--
+    캡처 자리 (assets/notebook/shot/ 에 같은 이름으로 넣으면 회색 '캡처 예정' 상자 대신 그림이 보임)
+    01_home.png            노트북 첫 화면(새 노트북)
+    02_studio_menu.png     작업실(스튜디오) 메뉴 — 오디오·슬라이드·동영상·마인드맵·보고서·플래시카드·퀴즈·인포그래픽·데이터 표
+    03_upload_formats.png  소스 추가 창 — 지원 형식(hwp·hwpx 포함) 안내
+    04_citation.png        답에 붙은 인용 번호와 원문 위치
+    05_trap_answer.png     함정 질문에 "소스에 없습니다"
+    06_label.png           라벨 자동 분류
+    07_slide.png           결과 보고 슬라이드
+    08_infographic.png     인포그래픽
+    09_datatable_sheet.png 데이터 표 → 구글 시트 내보내기
+    10_form.png            구글 폼 퀴즈
+    ※ 계정 이름·이메일·프로필 사진은 가리고 넣을 것
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body { overflow-x: hidden; }
+    .nb-back { display: inline-flex; margin-top: var(--sp-xl); font-size: 14px; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nb-back:hover { text-decoration: underline; }
+
+    /* 히어로 */
+    .nb-hero { margin-top: var(--sp-lg); background: var(--ink); color: var(--on-primary); border-radius: var(--rounded-md); padding: var(--sp-section) var(--gutter); }
+    .nb-hero .nb-kicker { font-size: 12px; font-weight: 800; letter-spacing: .18em; color: var(--stone); }
+    .nb-hero h1 { font-family: var(--font-display); font-weight: 400; font-size: 72px; line-height: 1.05; margin-top: var(--sp-md); word-break: keep-all; }
+    .nb-hero .nb-sub { margin-top: var(--sp-lg); font-size: 20px; line-height: 1.6; color: #d6d6d8; max-width: 760px; word-break: keep-all; }
+    .nb-hero .nb-sub strong { color: var(--canvas); }
+    .nb-hero .hero-cta { margin-top: var(--sp-xl); display: flex; gap: var(--sp-md); flex-wrap: wrap; }
+    .nb-hero .btn-primary { background: var(--canvas); color: var(--ink); }
+    .nb-hero .btn-secondary { background: transparent; color: var(--canvas); box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); }
+
+    /* 표 */
+    .nb-table-wrap { overflow-x: auto; margin-top: var(--sp-lg); -webkit-overflow-scrolling: touch; }
+    .nb-table { width: 100%; border-collapse: collapse; background: var(--canvas); font-size: 16px; line-height: 1.55; min-width: 560px; }
+    .nb-table th, .nb-table td { border: 1px solid var(--hairline); padding: 12px 14px; text-align: left; vertical-align: top; word-break: keep-all; }
+    .nb-table thead th { background: var(--ink); color: var(--on-primary); font-weight: 700; }
+    .nb-table td:first-child { font-weight: 700; white-space: nowrap; }
+    .nb-table.cmp td:nth-child(3) { background: #eef3ff; }
+
+    /* 한/글 강조 */
+    .hwp-callout { margin-top: var(--sp-xl); display: flex; gap: var(--sp-lg); align-items: flex-start; background: var(--info); color: var(--on-primary); border-radius: var(--rounded-md); padding: var(--sp-xl); }
+    .hwp-callout .hwp-badge { flex: 0 0 auto; font-family: var(--font-display); font-size: 40px; line-height: 1; background: var(--canvas); color: var(--info); border-radius: var(--rounded-sm); padding: 10px 16px; }
+    .hwp-callout h3 { font-size: 24px; font-weight: 800; line-height: 1.35; word-break: keep-all; }
+    .hwp-callout p { margin-top: var(--sp-sm); font-size: 16px; line-height: 1.6; color: #e6ecff; word-break: keep-all; }
+    .hwp-callout p strong { color: var(--canvas); }
+    .hwp-inline { display: inline-block; background: var(--info); color: var(--on-primary); border-radius: var(--rounded-lg); padding: 2px 12px; font-size: 13px; font-weight: 700; margin-left: 6px; vertical-align: middle; }
+
+    /* 본문 섹션 */
+    .nb-sec { padding-top: var(--sp-section); margin-top: var(--sp-section); border-top: 1px solid var(--hairline); }
+    .nb-sec-head { display: flex; gap: var(--sp-lg); align-items: baseline; flex-wrap: wrap; }
+    .nb-no { font-family: var(--font-display); font-size: 96px; line-height: .9; color: var(--ink); }
+    .nb-sec-head h2 { font-size: 44px; font-weight: 800; line-height: 1.15; word-break: keep-all; }
+    .nb-sec .lead { margin-top: var(--sp-md); font-size: 20px; line-height: 1.6; color: var(--charcoal); max-width: 820px; word-break: keep-all; }
+    .nb-box { margin-top: var(--sp-xl); background: var(--soft-cloud); padding: var(--sp-xl) var(--gutter); }
+    .nb-box h3 { font-size: 22px; font-weight: 800; margin-bottom: var(--sp-sm); word-break: keep-all; }
+    .nb-box .mix-lead { font-size: 17px; line-height: 1.6; color: var(--charcoal); word-break: keep-all; }
+    .nb-list { margin-top: var(--sp-md); display: grid; gap: var(--sp-sm); }
+    .nb-list li { position: relative; padding-left: var(--sp-lg); font-size: 17px; line-height: 1.6; color: var(--charcoal); list-style: none; word-break: keep-all; }
+    .nb-list li::before { content: ""; position: absolute; left: 0; top: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+    .src-chips { display: flex; flex-wrap: wrap; gap: var(--sp-sm); margin-top: var(--sp-md); }
+    .src-chip { background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--rounded-lg); padding: 4px 14px; font-size: 14px; font-weight: 600; color: var(--ink); word-break: break-all; }
+    .src-chip.hwp { border-color: var(--info); color: var(--info); }
+    .prompt-row .ptext { white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+    .check-note { margin-top: var(--sp-sm); font-size: 15px; color: var(--mute); line-height: 1.6; }
+
+    /* 화면 세 칸 */
+    .three-pane { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+    .three-pane div { background: var(--canvas); border: 1px solid var(--hairline); padding: var(--sp-lg); }
+    .three-pane b { display: block; font-size: 20px; }
+    .three-pane span { display: block; margin-top: 6px; font-size: 15px; color: var(--charcoal); line-height: 1.5; }
+
+    /* 캡처 자리 */
+    .shot-slot { margin: var(--sp-lg) 0 0; }
+    .shot-slot .slot-frame { position: relative; background: #e9e9ea; border: 1px dashed var(--stone); aspect-ratio: 16 / 9; overflow: hidden; }
+    .shot-slot .slot-frame::after { content: "캡처 예정"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--mute); }
+    .shot-slot img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; }
+    .shot-slot img.missing { display: none; }
+    .shot-slot figcaption { margin-top: 6px; font-size: 14px; color: var(--mute); }
+    .shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); }
+    main > .shot-slot, .nb-box > .shot-slot { max-width: 760px; }
+    .shot-pair .shot-slot { max-width: none; }
+
+    /* 03 트랙 */
+    .tracks { display: grid; gap: var(--sp-sm); margin-top: var(--sp-lg); }
+    .track { background: var(--canvas); border: 1px solid var(--hairline); }
+    .track > summary { cursor: pointer; list-style: none; display: flex; gap: var(--sp-md); align-items: center; padding: var(--sp-lg); font-size: 20px; font-weight: 800; }
+    .track > summary::-webkit-details-marker { display: none; }
+    .track > summary .tk { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--on-primary); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 24px; font-weight: 400; }
+    .track > summary .tdesc { font-size: 15px; font-weight: 500; color: var(--mute); }
+    .track > summary::after { content: "+"; margin-left: auto; font-size: 24px; font-weight: 400; }
+    .track[open] > summary::after { content: "\2212"; }
+    .track .track-body { padding: 0 var(--sp-lg) var(--sp-lg); }
+
+    /* 막히면 */
+    .stuck { margin-top: var(--sp-xl); border: 2px solid var(--ink); padding: var(--sp-xl); background: var(--canvas); }
+    .stuck h3 { font-size: 24px; font-weight: 800; }
+
+    .dl-row { display: flex; flex-wrap: wrap; gap: var(--sp-md); margin-top: var(--sp-lg); }
+
+    @media (max-width: 900px) {
+      .nb-hero h1 { font-size: 48px; }
+      .nb-no { font-size: 64px; }
+      .nb-sec-head h2 { font-size: 30px; }
+      .three-pane { grid-template-columns: 1fr; }
+      .shot-pair { grid-template-columns: 1fr; }
+      .hwp-callout { flex-direction: column; }
+    }
+    @media (max-width: 599px) {
+      :root { --gutter: 16px; }
+      .nb-hero { padding: var(--sp-xxl) var(--gutter); }
+      .nb-hero h1 { font-size: 38px; }
+      .nb-hero .nb-sub, .nb-sec .lead { font-size: 17px; }
+      .track > summary { font-size: 17px; flex-wrap: wrap; }
+      .track > summary .tdesc { flex-basis: 100%; order: 3; }
+      .prompt-row .pcat { min-width: 0; white-space: normal; }
+      .nb-table.cmp { min-width: 0; font-size: 14px; }
+      .nb-table.cmp th, .nb-table.cmp td { padding: 8px; }
+      .nb-table.cmp td:first-child { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="utility-bar">
+    <div class="shell">
+      <a class="caption-sm" href="index.html">AI 교실 처음으로</a>
+      <a class="caption-sm" href="index.html#s6">노트북LM 기초편</a>
+      <a class="caption-sm" href="https://notebook.google.com/" target="_blank" rel="noopener">Gemini 노트북 열기 &#8599;</a>
+    </div>
+  </div>
+
+  <header class="primary-nav">
+    <div class="shell">
+      <button class="nav-toggle" aria-label="메뉴 열기">&#9776;</button>
+      <a class="brand" href="index.html"><span class="swoosh">AI</span> 교실</a>
+      <nav class="nav-links" aria-label="심화편 메뉴">
+        <a href="#start">시작</a>
+        <a href="#p01">공문서</a>
+        <a href="#p02">엑셀·슬라이드</a>
+        <a href="#p03">내 업무</a>
+        <a href="#p04">퀴즈·폼</a>
+        <a href="#more">더 해 보기</a>
+        <a href="#check">기능 표</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <a class="nb-back" href="index.html#s6">&larr; 노트북LM 기초편으로</a>
+
+    <!-- ======================= 히어로 ======================= -->
+    <section class="nb-hero" aria-label="노트북 LM 심화편">
+      <p class="nb-kicker">NOTEBOOK LM · 심화편 · 90분</p>
+      <h1>지어내지 않는 AI,<br />근거를 대는 AI</h1>
+      <p class="nb-sub">규정집·공문서 지침·학교폭력 매뉴얼을 <strong>소스</strong>로 넣으면, Gemini 노트북은 <strong>그 자료 안에서만</strong> 답하고 답마다 <strong>인용 번호</strong>를 붙입니다. 자료에 없으면 <strong>"소스에 없습니다"</strong>라고 말하게 할 수 있어요. 그래도 마지막 확인은 사람이 합니다.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://notebook.google.com/" target="_blank" rel="noopener">Gemini 노트북 열기 &#8599;</a>
+        <a class="btn btn-secondary force-download" href="assets/notebook/노트북연수_실습.zip" download="노트북연수_실습.zip">실습 자료 zip ↓</a>
+      </div>
+    </section>
+
+    <div class="nb-table-wrap">
+      <table class="nb-table cmp">
+        <thead><tr><th>구분</th><th>일반 Gemini 대화</th><th>Gemini 노트북 (노트북 LM)</th></tr></thead>
+        <tbody>
+          <tr><td>무엇으로 답하나</td><td>인터넷 전체에서 배운 지식으로 그럴듯하게</td><td><strong>내가 넣은 자료</strong>(규정·지침·매뉴얼) 안에서만</td></tr>
+          <tr><td>근거</td><td>출처를 알기 어려움</td><td>답마다 <strong>인용 번호</strong> — 누르면 원문 위치로</td></tr>
+          <tr><td>모르는 것</td><td>지어낼 수 있음</td><td><strong>"소스에 없습니다"</strong> (맞춤 지침으로 고정)</td></tr>
+          <tr><td>쓰임</td><td>범용</td><td><strong>업무 전용</strong> — 우리 학교 규정·공문 지침에 맞춘 답</td></tr>
+          <tr><td>학교 계정(goe)</td><td>—</td><td>올린 자료와 대화가 <strong>AI 학습에 쓰이지 않고 비공개</strong>로 유지된다고 화면에 안내</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="hwp-callout">
+      <span class="hwp-badge">HWP</span>
+      <div>
+        <h3>한/글 파일(hwp·hwpx)을 그대로 소스로 올릴 수 있어요</h3>
+        <p>goe 학교 계정 노트북의 소스 추가 창에서 확인했어요(2026. 10. 13.). 지원 형식: <strong>pdf, txt, md, docx, csv, pptx, epub, … odt, rtf, hwp, hwpx</strong>. 계획서·공문·서식을 PDF로 바꿀 필요 없이 <strong>한/글 파일 그대로</strong> 넣으세요. 단, <strong>엑셀(xlsx)은 안 올라갑니다</strong> → CSV로 저장하거나 구글 시트(Drive)로 넣으세요.</p>
+      </div>
+    </div>
+
+    <figure class="shot-slot">
+      <div class="slot-frame"><img src="assets/notebook/shot/03_upload_formats.png" alt="소스 추가 창의 지원 형식 안내 — hwp, hwpx 포함" onerror="this.classList.add('missing')" /></div>
+      <figcaption>소스 추가 창 — 지원 형식 안내 (hwp·hwpx 포함)</figcaption>
+    </figure>
+
+    <!-- ======================= 화면과 흐름 ======================= -->
+    <section class="nb-sec" aria-label="화면과 90분 흐름">
+      <div class="nb-sec-head"><span class="nb-no">90'</span><h2>화면 세 칸과<br />90분 흐름</h2></div>
+      <div class="three-pane">
+        <div><b>자료실 (소스)</b><span>규정·지침·계획서를 넣고 라벨로 정리하는 곳</span></div>
+        <div><b>질문창</b><span>소스에 근거해 묻고 답하는 곳 — 답마다 인용 번호</span></div>
+        <div><b>작업실 (스튜디오)</b><span>슬라이드·인포그래픽·마인드맵·데이터 표·퀴즈·오디오·동영상</span></div>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/01_home.png" alt="Gemini 노트북 새 노트북 첫 화면" onerror="this.classList.add('missing')" /></div>
+          <figcaption>새 노트북 첫 화면</figcaption>
+        </figure>
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/02_studio_menu.png" alt="작업실(스튜디오) 메뉴" onerror="this.classList.add('missing')" /></div>
+          <figcaption>작업실 메뉴 — 오디오·슬라이드·동영상·마인드맵·보고서·플래시카드·퀴즈·인포그래픽·데이터 표</figcaption>
+        </figure>
+      </div>
+      <div class="nb-table-wrap">
+        <table class="nb-table">
+          <thead><tr><th>시간</th><th>실습</th><th>하는 일</th><th>결과물</th></tr></thead>
+          <tbody>
+            <tr><td>0–10</td><td>00 시작하기</td><td>노트북 만들기 → 맞춤 지침 → 일반 Gemini와 같은 질문 비교</td><td>인용 있는 답 vs 없는 답</td></tr>
+            <tr><td>10–28</td><td>01 공문서</td><td>규칙 표 → 인용 확인 → 메모를 <strong>[검증] 소스로 변환</strong> → 틀린 기안문 찾기 → 기안문 쓰기</td><td>규정 근거가 달린 기안문</td></tr>
+            <tr><td>28–55</td><td>02 엑셀→슬라이드</td><td>설문 평균 채점 → 동아리 결과 문단 → <strong>결과 보고 슬라이드</strong>(하루 3회) → 인포그래픽</td><td>운영 결과 보고 슬라이드</td></tr>
+            <tr><td>55–70</td><td>03 내 업무 규정</td><td>학교폭력 / 인사·전보 / 방과후돌봄 / 예산 / 학교자율시간 / 급식 중 <strong>하나</strong> → 라벨·소스 점검 → <strong>함정 질문</strong></td><td>"소스에 없습니다" 확인</td></tr>
+            <tr><td>70–80</td><td>04 퀴즈→구글 폼</td><td>작업실 <strong>데이터 표</strong> → <strong>구글 시트로 내보내기</strong> → 폼</td><td>교직원 연수 퀴즈 폼</td></tr>
+            <tr><td>80–90</td><td>정리 · 더 해 보기</td><td>오디오·동영상·마인드맵→나노바나나·클래스룸(미리 만든 예시) · 05 도전</td><td>에이전트=파일을 고친다 / 노트북=근거로 답한다</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dl-row">
+        <a class="btn btn-primary force-download" href="assets/notebook/노트북연수_실습.zip" download="노트북연수_실습.zip">실습 자료 전체 zip ↓</a>
+        <a class="btn btn-secondary" href="https://notebook.google.com/" target="_blank" rel="noopener">Gemini 노트북 열기 &#8599;</a>
+      </div>
+      <p class="check-note">노트북은 하나만 만들고, 01·02 자료와 03에서 고른 자료를 넣은 뒤 <strong>라벨</strong>(자료실 왼쪽 위)로 나눕니다. 학교 계정이라도 학생 실명·주민번호 같은 개인정보는 지우고 올리세요.</p>
+    </section>
+
+    <!-- ======================= 00 시작하기 ======================= -->
+    <section class="nb-sec" id="start" aria-label="00 시작하기">
+      <div class="nb-sec-head"><span class="nb-no">00</span><h2>시작하기 — 같은 질문, 다른 답</h2></div>
+      <p class="lead">노트북을 만들고 <strong>[노트북 구성 → 대화 스타일 → 맞춤]</strong>에 아래 지침을 붙여 넣은 뒤, 같은 질문을 일반 Gemini와 노트북에 해 봅니다.</p>
+      <div class="nb-box">
+        <h3>맞춤 지침 (모든 노트북 공통)</h3>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">맞춤 지침</span><span class="ptext">너는 오현초등학교 업무 도우미다.
+1. 올린 소스에 있는 내용으로만 답해. 소스에 없으면 "소스에 없습니다"라고 말하고 추측하지 마.
+2. 답의 문장마다 근거 인용을 붙여. 규정이면 조항 번호, 문서면 쪽이나 항목을 함께 적어.
+3. 소스끼리 내용이 다르면 둘 다 보여 주고 어느 쪽이 최신인지 물어봐.
+4. 날짜는 '2026. 3. 12.(목)', 시간은 '14:30', 금액은 '1,500,000원'으로 써.
+5. 숫자를 계산했으면 어떤 셀·항목을 더하고 나눴는지 한 줄로 밝혀.</span><button class="prompt-copy">복사</button></div>
+        </div>
+      </div>
+      <div class="nb-box">
+        <h3>비교 질문 카드 — ① 일반 Gemini ② 노트북(공문서 소스를 넣은 뒤)</h3>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">질문 1</span><span class="ptext">경기도교육청 공문에서 '붙임'은 어떻게 써? 쌍점을 찍어?</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">질문 2</span><span class="ptext">공문에서 날짜 '2026.03.05' 이렇게 써도 돼?</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">함정 질문</span><span class="ptext">우리 학교 교직원 주차 규정 알려줘.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <ul class="nb-list">
+          <li>노트북 답에 [1] [2] 같은 인용 번호가 붙나요? 눌러 보면 원문 어디로 가나요?</li>
+          <li>함정 질문에 일반 Gemini는 무엇이라고 하나요? 노트북은 "소스에 없습니다"라고 하나요?</li>
+        </ul>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/04_citation.png" alt="답에 붙은 인용 번호와 원문 위치" onerror="this.classList.add('missing')" /></div>
+          <figcaption>인용 번호를 누르면 원문 위치가 열려요</figcaption>
+        </figure>
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/05_trap_answer.png" alt="함정 질문에 소스에 없습니다라고 답한 화면" onerror="this.classList.add('missing')" /></div>
+          <figcaption>함정 질문 — "소스에 없습니다"</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================= 01 공문서 ======================= -->
+    <section class="nb-sec" id="p01" aria-label="01 공문서">
+      <div class="nb-sec-head"><span class="nb-no">01</span><h2>공문서 — 규정에 맞춘 기안문</h2></div>
+      <p class="lead">경기도교육청 공문서 작성 규정을 소스로 넣고, 규칙을 표로 뽑아 <strong>인용으로 확인</strong>한 뒤 기안문을 씁니다. 계획서는 <strong>한/글 파일 그대로</strong> 올려요.</p>
+      <div class="src-chips">
+        <span class="src-chip">경기도교육청 공문서 작성 규정.pdf</span>
+        <span class="src-chip">공문서_작성법_AI학습용.md</span>
+        <span class="src-chip hwp">2025학년도 합동소방훈련 계획(앞부분).hwpx — 한/글 그대로</span>
+        <span class="src-chip">틀린_기안문_찾아보기.txt</span>
+      </div>
+      <div class="nb-box">
+        <h3>이런 내용을 다뤄요</h3>
+        <ul class="nb-list">
+          <li>날짜·시간·금액·'붙임'·'끝' 규칙 표 → 인용 2개 이상 눌러 원문 대조</li>
+          <li>맞으면 <strong>[메모에 저장] → 메모 … → [소스로 변환]</strong>, 제목 앞에 <strong>[검증]</strong> — 확인한 답만 소스가 됩니다</li>
+          <li>일부러 틀린 곳 9개를 심은 기안문에서 규정 위반 찾기</li>
+          <li>계획서에 없는 내용은 <strong>[확인 필요]</strong>로 남기기</li>
+        </ul>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">1 규칙 표</span><span class="ptext">공문서에서 날짜·시간·금액·'붙임'·'끝' 쓰는 규칙을 표로 정리해 줘. 칸: 항목 | 규칙 | 틀린 예 → 바른 예 | 근거</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">2 틀린 곳 찾기</span><span class="ptext">틀린_기안문_찾아보기.txt에서 공문서 규정에 어긋난 곳을 모두 찾아 줘. 칸: 틀린 부분 | 바르게 고친 것 | 근거 규정</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">3 기안문</span><span class="ptext">합동소방훈련 계획(한/글 파일)으로 내부결재 기안문을 규정에 맞게 써 줘. 계획서에 없는 내용은 [확인 필요]로 남기고, 규정을 적용한 곳마다 근거를 달아 줘.</span><button class="prompt-copy">복사</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= 02 엑셀 → 슬라이드 ======================= -->
+    <section class="nb-sec" id="p02" aria-label="02 엑셀에서 슬라이드로">
+      <div class="nb-sec-head"><span class="nb-no">02</span><h2>엑셀 → 슬라이드 — 숫자를 지키는지 채점</h2></div>
+      <p class="lead">설문 결과의 정답(평균이 낮은 문항)을 강사가 알고 있어요. 노트북이 <strong>숫자를 정확히 지키는지</strong> 채점한 뒤, 계획 → 실적 → 결과 보고 슬라이드까지 하나의 업무 흐름으로 이어 갑니다.</p>
+      <div class="src-chips">
+        <span class="src-chip">2026 가상초 교육과정 만족도 설문(응답) — CSV 또는 구글 시트</span>
+        <span class="src-chip">참여현황_만족도 — CSV 또는 구글 시트</span>
+        <span class="src-chip hwp">디지털동아리_운영계획.hwpx — 한/글 그대로</span>
+        <span class="src-chip">디자인_가이드(강의안 스타일).md</span>
+      </div>
+      <p class="check-note">※ 엑셀(xlsx)은 소스로 올라가지 않아요. 엑셀에서 <strong>다른 이름으로 저장 → CSV(UTF-8)</strong>로 바꾸거나, 구글 드라이브에 올려 <strong>구글 시트</strong>로 연 뒤 소스 추가 → Drive에서 고르세요.</p>
+      <div class="nb-box">
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">1 정답 채점</span><span class="ptext">만족도 설문에서 1~8번 문항별 평균을 구하고, 평균이 가장 낮은 문항 3개를 알려 줘. 어떤 열을 계산했는지도 밝혀.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">2 결과 문단</span><span class="ptext">디지털 동아리 운영계획과 참여현황을 비교해서 결과보고서의 '운영 결과' 문단을 써 줘. 회차별 참여율, 전체 참여율, 만족도 문항별 평균을 넣고, 계획서의 목적과 연결해.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">3 슬라이드</span><span class="ptext">2025 오현 디지털 방과후 동아리 운영 결과 보고 슬라이드 8장.
+표지 → 운영 개요 → 회차별 참여율 그래프 → 만족도 결과 → 잘된 점 → 아쉬운 점 → 2026 개선 방향 → 마무리.
+스타일: 검정·흰색 위주의 에디토리얼 디자인, 굵고 큰 한글 제목, 군더더기 없는 평면 도형, 강조색은 한 가지만.
+소스에 없는 숫자나 사례는 넣지 마.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">4 인포그래픽</span><span class="ptext">만족도 설문 결과를 한 장으로 요약한 인포그래픽을 만들어 줘. 핵심 숫자는 크게, 소스에 없는 숫자는 넣지 마.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <p class="check-note">슬라이드는 <strong>[작업실 → 슬라이드 → 오른쪽 화살표(&gt;)]</strong>에 붙여 넣어요. 무료는 <strong>하루 3회</strong>라 한 번에!</p>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/07_slide.png" alt="결과 보고 슬라이드" onerror="this.classList.add('missing')" /></div>
+          <figcaption>결과 보고 슬라이드</figcaption>
+        </figure>
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/08_infographic.png" alt="인포그래픽" onerror="this.classList.add('missing')" /></div>
+          <figcaption>인포그래픽</figcaption>
+        </figure>
+      </div>
+
+      <div class="nb-box">
+        <p class="mix-highlight">슬라이드 심화</p>
+        <h3>개요 → 캐릭터 세트 → 같은 디자인으로 끝없이 늘리기</h3>
+        <p class="mix-lead">① 개요는 질문창에서 뽑으니 슬라이드 횟수가 들지 않아요. ③에서 만든 슬라이드를 <strong>PDF로 내려받아 다시 소스로 올린 뒤</strong> ④를 넣으면 16장부터 같은 디자인으로 이어집니다.</p>
+        <div class="prompt-list two-col">
+          <div class="prompt-row"><span class="pcat">① 개요</span><span class="ptext">2025 디지털 방과후 동아리 운영 결과를 교직원 협의회에서 보고할 슬라이드 15장의 개요를 짜 줘. 각 슬라이드의 제목과 핵심 내용을 번호 순서대로. 소스에 없는 숫자는 넣지 마.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">② 캐릭터 세트</span><span class="ptext">귀엽고 친근한 느낌의 초등학교 교사 캐릭터를 3×3 그리드 형태의 캐릭터 시트로 그려줘. 다양한 자세나 표정·몸짓이 드러나게. 그림체는 세련되면서 약간 귀엽게, 전문적이고 친근한 느낌. 텍스트 없이, 배경은 흰색.
+[캐릭터 특징 직접 입력 - 예: 단발머리, 밝은 파란색 셔츠]</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">③ 생성</span><span class="ptext">슬라이드 개요에 따라 슬라이드를 구성해줘. 텍스트는 큼직하게, 모든 슬라이드에 소스의 캐릭터 세트 캐릭터를 상황에 맞게 배치해줘. 디자인은 소스의 디자인 가이드를 따르되 내용은 무시하고 디자인·레이아웃만 참고해줘. 우측 하단 영역은 모든 슬라이드에서 같은 단색으로.
+[여기에 1~15장 개요 붙여넣기]</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">④ 16장부터</span><span class="ptext">[여기에 16~30장 개요 붙여넣기]
+방금 소스로 다시 올린 슬라이드 자료와 완벽하게 일관성이 유지되도록, 같은 템플릿과 스타일로 다음 개요의 슬라이드를 만들어줘.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <p class="check-note">② 캐릭터 세트는 Gemini 앱(나노바나나)에서 만들어 PNG로 소스에 올려요.</p>
+        <h3 style="margin-top:var(--sp-xl)">⑤ 한 장만 고치기</h3>
+        <div class="prompt-list two-col">
+          <div class="prompt-row"><span class="pcat">캐릭터 교체</span><span class="ptext">캐릭터를 소스의 캐릭터 세트에 있는 인물로 바꿔줘</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">제목 수정</span><span class="ptext">제목을 "회차별 참여율"로 바꾸고 5회차가 낮았던 이유를 [확인 필요]로 적어줘</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">레이아웃</span><span class="ptext">텍스트를 왼쪽에, 그래프를 오른쪽에 배치해줘</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <h3 style="margin-top:var(--sp-xl)">⑥ 인포그래픽 — 스타일·방향·세부 정보</h3>
+        <p class="mix-lead">화살표(&gt;)에서 스타일(스케치노트·귀여움·클레이·에디토리얼·안내형·벤토 그리드·블록·과학·일본 애니메이션·프로페셔널), 방향(가로 16:9 / 세로 / 정사각형), 세부 정보(간결 / 표준 / 상세)를 고르고:</p>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">계획 vs 실적</span><span class="ptext">동아리 운영 결과를 계획 대비 실적으로 한눈에 비교하도록, 왼쪽은 계획·오른쪽은 실적으로 나눈 대조 레이아웃으로 정리해 줘.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">미니멀 카드</span><span class="ptext">A4 세로 한 장, 흰 배경에 포인트 컬러 한 가지, 넉넉한 여백, 큰 제목과 3~4개 카드형 블록, 핵심 숫자는 크게.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">단계형</span><span class="ptext">위에서 아래로 흐르는 단계형, 번호 단계마다 한 줄 설명과 아이콘, 화살표로 연결.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">데이터 강조</span><span class="ptext">큰 숫자와 짧은 라벨, 막대·도넛 그래프, 대비가 뚜렷한 색.</span><button class="prompt-copy">복사</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= 03 내 업무 규정 노트북 ======================= -->
+    <section class="nb-sec" id="p03" aria-label="03 내 업무 규정 노트북">
+      <div class="nb-sec-head"><span class="nb-no">03</span><h2>내 업무 규정 노트북 — 하나 골라서</h2></div>
+      <p class="lead">내 업무에 맞는 트랙 하나를 고릅니다. 모든 트랙에 <strong>공통_오현초_학교생활규정(가상).md</strong>를 함께 넣고, 마지막은 <strong>함정 질문</strong>으로 "소스에 없습니다"를 확인해요.</p>
+
+      <div class="nb-box">
+        <h3>모든 트랙에서 먼저</h3>
+        <ul class="nb-list">
+          <li><strong>라벨</strong> — 자료실 왼쪽 위 라벨 버튼으로 자동 분류. 한 자료에 라벨 여러 개 가능, 슬라이드를 만들 때 라벨만 골라 그 주제만 담기</li>
+          <li><strong>소스 점검</strong> — 깡통·중복·지난 지침 골라내기</li>
+        </ul>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">소스 점검</span><span class="ptext">업로드된 소스 전체를 하나도 빠짐없이 검토해서 업무에 쓰면 안 되는 소스를 골라내.
+기준: 실제 본문이 없는 소스, 다른 소스와 내용이 겹치는 소스, 연도가 지난 지침, 제목과 내용이 다른 소스.
+표로: 소스 번호 | 제목 | 실제 본문 요약 | 빼야 할 이유. 유지할 소스는 쓰지 마.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/06_label.png" alt="라벨 자동 분류 화면" onerror="this.classList.add('missing')" /></div>
+          <figcaption>라벨 자동 분류</figcaption>
+        </figure>
+      </div>
+
+      <div class="tracks">
+        <details class="track">
+          <summary><span class="tk">A</span>학교폭력<span class="tdesc">사안이 접수됐을 때 오늘부터 할 일</span></summary>
+          <div class="track-body">
+            <div class="src-chips">
+              <span class="src-chip">2026학년도 학교폭력 사안처리 가이드북.pdf (216쪽)</span>
+              <span class="src-chip">오현초_학교폭력_사안메모(가상).md</span>
+            </div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">1 체크리스트</span><span class="ptext">사안 메모를 보고, 담임교사와 학교가 지금부터 해야 할 일을 순서대로 체크리스트로 만들어 줘.
+칸: 순서 | 할 일 | 기한 | 누가 | 근거(가이드북 쪽)</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">2 양식</span><span class="ptext">이 사안에서 쓸 양식 번호와 이름만 골라 줘. (예: &lt;양식1-1&gt; …)</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">3 보호자 안내</span><span class="ptext">피해 관련 학생 보호자에게 보낼 첫 안내 문자를 써 줘. 가이드북에 근거한 절차만, 학생 이름 없이, 5줄 이내.</span><button class="prompt-copy">복사</button></div>
+            </div>
+            <p class="check-note">'24시간', '48시간' 같은 기한마다 인용을 눌러 가이드북 원문과 맞는지 확인하세요.</p>
+          </div>
+        </details>
+
+        <details class="track">
+          <summary><span class="tk">B</span>인사·전보<span class="tdesc">내 전보·근무기간 규정 찾기</span></summary>
+          <div class="track-body">
+            <div class="src-chips"><span class="src-chip">2026 경기도교육공무원인사관리세부기준(유치원,초등)(66차)_게시용.pdf</span></div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">1 정기전보</span><span class="ptext">교사의 정기전보는 언제 하고, 같은 학교에서 몇 년 근무하면 전보 대상이 돼? 조항 번호와 함께.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">2 내 상황</span><span class="ptext">나는 초등 교사이고 갑구역에서 9년째 근무 중이야. 18세 이하 자녀가 셋 있어.
+내년에 갑구역 만기가 되는지, 근무기간을 늦출 수 있는지 규정 근거와 함께 알려 줘.
+소스에 없는 조건은 [확인 필요]로 남겨.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">3 개정 조항</span><span class="ptext">이 기준에서 2025. 7. 14.에 개정된 조항만 골라 표로 정리해 줘. 칸: 조항 | 바뀐 내용 요약</span><button class="prompt-copy">복사</button></div>
+            </div>
+            <p class="check-note">이 PDF는 글자 사이 띄어쓰기가 빠져 있어 AI가 잘못 읽을 수 있어요. 인용 확인이 특히 중요합니다. (2번은 가상의 예)</p>
+          </div>
+        </details>
+
+        <details class="track">
+          <summary><span class="tk">C</span>방과후돌봄<span class="tdesc">길라잡이로 묻고, 한/글 서식으로 가정통신문 쓰기</span></summary>
+          <div class="track-body">
+            <div class="src-chips">
+              <span class="src-chip">2026 초등 방과후돌봄 운영 길라잡이(최종본).pdf</span>
+              <span class="src-chip hwp">2026 초등 방과후돌봄 운영 길라잡이(서식).hwpx — 한/글 그대로</span>
+            </div>
+            <p class="check-note"><span class="hwp-inline">HWP</span> 서식집을 <strong>한/글 파일 그대로</strong> 소스로 넣고, 서식 1번을 우리 학교용으로 채웁니다.</p>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">1 유형 비교</span><span class="ptext">방과후·돌봄 프로그램 유형(맞춤형, 이용권, 수익자 방과후, 돌봄)을 대상·시간·비용으로 비교하는 표를 만들어 줘. 근거 쪽 포함.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">2 급간식비</span><span class="ptext">급간식비를 돌려줘야 하는 경우와 금액 계산 방법을 알려 줘.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">3 서식 채우기</span><span class="ptext">한/글 서식 파일의 1번 '방과후·돌봄 운영 기초 수요 조사'를 오현초등학교 2027학년도용으로 채워 줘.
+날짜·담당자처럼 소스에 없는 것은 [확인 필요]로 남기고, 서식의 문항 순서는 그대로 둬.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">4 강사 서류</span><span class="ptext">외부강사를 위촉할 때 받아야 하는 서류를 서식 번호와 함께 목록으로.</span><button class="prompt-copy">복사</button></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="track">
+          <summary><span class="tk">D</span>예산·회계<span class="tdesc">견적 물품을 어느 예산으로 살까</span></summary>
+          <div class="track-body">
+            <div class="src-chips">
+              <span class="src-chip">2026학년도 학교회계 예산편성 기본지침-최종.pdf</span>
+              <span class="src-chip">지마켓 견적서 — CSV로 저장해서</span>
+            </div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">예산 항목</span><span class="ptext">견적서의 물품을 하나씩, 어떤 예산 항목(세출 과목)으로 사야 하는지 지침 근거와 함께 표로 정리해 줘.
+칸: 물품 | 금액 | 예산 항목 | 근거(지침 쪽) | 확인할 점</span><button class="prompt-copy">복사</button></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="track">
+          <summary><span class="tk">E</span>학교자율시간(연구부)<span class="tdesc">한 장 인포그래픽 + 협의회 슬라이드 + 마인드맵</span></summary>
+          <div class="track-body">
+            <div class="dl-row">
+              <a class="btn btn-secondary force-download" href="assets/files/학교자율시간-이해와-실제-안내자료.pdf" download="학교자율시간-이해와-실제-안내자료.pdf">① 이해와 실제 안내자료 (PDF) ↓</a>
+              <a class="btn btn-secondary force-download" href="assets/files/학교자율시간-과목활동-개설-예시자료.pdf" download="학교자율시간-과목활동-개설-예시자료.pdf">② 과목·활동 개설 예시자료 (PDF) ↓</a>
+            </div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">인포그래픽</span><span class="ptext">너는 우리 학교 연구부장이야. 올린 자료를 처음 보는 동료 교사들에게 5분 안에 전달해야 해. '학교자율시간이 무엇이고, 왜·누가·언제·어떻게 운영하는지' 핵심만 뽑아 A4 한 장 인포그래픽으로 정리해 줘. 꼭 알아야 할 일정과 절차는 빠뜨리지 말고, 어려운 행정용어는 쉬운 말로 풀어 줘.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">협의회 슬라이드</span><span class="ptext">같은 내용을 교직원 협의회 발표용 슬라이드로 만들어 줘. 표지 + '개념 / 운영 형태 / 시수·일정 / 개설 절차 / 우리 학교가 할 일' 순서로 6~8장, 슬라이드마다 제목 한 줄과 핵심 bullet 3개 이내, 발표자가 말할 스크립트도 함께 적어 줘.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">마인드맵</span><span class="ptext">학교자율시간 운영 절차를 '편성 → 개설 승인 → 운영 → 평가' 네 가지를 중심으로 마인드맵으로 만들어 줘.</span><button class="prompt-copy">복사</button></div>
+            </div>
+            <p class="check-note">마인드맵의 가지(노드)를 누르면 그 내용만 질문창에 근거와 함께 정리됩니다.</p>
+          </div>
+        </details>
+
+        <details class="track">
+          <summary><span class="tk">F</span>급식·식생활<span class="tdesc">인포그래픽 모음 + 가정통신문</span></summary>
+          <div class="track-body">
+            <div class="dl-row">
+              <a class="btn btn-secondary force-download" href="assets/files/6월-급식-식생활-교육자료.pdf" download="6월-급식-식생활-교육자료.pdf">6월 급식·식생활 교육자료 (PDF) ↓</a>
+            </div>
+            <div class="prompt-list">
+              <div class="prompt-row"><span class="pcat">아침 식사</span><span class="ptext">올린 자료를 근거로 '아침 식사를 해야 하는 이유!' 한 장 인포그래픽을 만들어 줘. 우리 학교 설문 결과(81명 중 29명만 매일 아침 식사, 23명은 거의 안 함)를 큰 숫자로 보여 주고, 아침을 거르면 생기는 문제(학습효과 저하·에너지 부족·성장 지연·과체중)를 아이콘과 함께 4가지 블록으로 정리해 줘. 초등학생이 읽기 쉬운 말로.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">선택급식 모음</span><span class="ptext">자료의 선택식단(주 2회, 화·목 제공)을 바탕으로 '선택급식의 건강에 좋은 점' 인포그래픽 모음을 만들어 줘. 메뉴별로 어떤 영양소가 풍부하고 몸에 어떻게 좋은지 카드 형식으로 한 장씩, 같은 디자인 톤으로 시리즈처럼 통일해서.</span><button class="prompt-copy">복사</button></div>
+              <div class="prompt-row"><span class="pcat">가정통신문</span><span class="ptext">위 인포그래픽 내용을 학부모님께 보내는 짧은 가정통신문 문구로도 정리해 줘. 따뜻하고 정중한 말투로, 아침 식사의 중요성과 가정에서 도와주실 점 3가지를 담아서.</span><button class="prompt-copy">복사</button></div>
+            </div>
+            <p class="check-note">숫자(81·29·23)가 자료와 같은지 인용으로 확인하세요.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="nb-box">
+        <h3>공통 함정 질문 — "소스에 없습니다"면 성공</h3>
+        <div class="prompt-list two-col">
+          <div class="prompt-row"><span class="pcat">주차</span><span class="ptext">우리 학교 교직원 주차 규정 알려 줘.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">반려동물</span><span class="ptext">학생이 반려동물을 데리고 등교해도 돼?</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">B 인사</span><span class="ptext">교원 성과상여금 등급은 어떻게 정해?</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">C 방과후</span><span class="ptext">방과후 강사 주차는 어디에 해?</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <p class="check-note">일반 Gemini 대화창에도 같은 질문을 해 보고 비교해 보세요.</p>
+      </div>
+    </section>
+
+    <!-- ======================= 04 퀴즈 → 구글 폼 ======================= -->
+    <section class="nb-sec" id="p04" aria-label="04 퀴즈에서 구글 폼으로">
+      <div class="nb-sec-head"><span class="nb-no">04</span><h2>퀴즈 → 데이터 표 → 시트 → 폼</h2></div>
+      <p class="lead">03에서 쓴 노트북 그대로, 근거 쪽이 붙은 <strong>교직원 연수 확인 퀴즈</strong>를 만들어 구글 폼으로 내보냅니다. 해설에 근거가 있으니 정답 시비가 없어요.</p>
+      <div class="nb-box">
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">1 데이터 표</span><span class="ptext">교직원 연수 확인 퀴즈 10문항. 칸: 번호 | 문항 | 보기1 | 보기2 | 보기3 | 보기4 | 정답 | 해설 | 근거(문서·쪽)
+해설과 근거는 소스에 있는 내용으로만.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <ul class="nb-list">
+          <li><strong>[작업실 → 데이터 표 → 화살표(&gt;)]</strong>에 붙여 넣기 (메뉴가 없으면 질문창에 같은 문장 + "표로")</li>
+          <li>만들어진 표 → <strong>[구글 시트로 내보내기]</strong> → 정답·근거 쪽을 2문항 이상 인용으로 확인</li>
+          <li>구글 폼 새로 만들기 → <strong>Gemini(✨)</strong>에서 그 시트를 골라 퀴즈 만들기 → 설정에서 '퀴즈로 만들기' 켜고 정답·해설 확인</li>
+          <li>폼에 Gemini가 안 보이면 시트의 문항을 폼에 직접 붙여 넣기 (예비 방법)</li>
+          <li>비교: <strong>[작업실 → 퀴즈]</strong> 버튼으로 노트북 안에서 바로 풀어 보기</li>
+        </ul>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/09_datatable_sheet.png" alt="데이터 표를 구글 시트로 내보낸 화면" onerror="this.classList.add('missing')" /></div>
+          <figcaption>데이터 표 → 구글 시트 내보내기</figcaption>
+        </figure>
+        <figure class="shot-slot">
+          <div class="slot-frame"><img src="assets/notebook/shot/10_form.png" alt="구글 폼 퀴즈" onerror="this.classList.add('missing')" /></div>
+          <figcaption>구글 폼 퀴즈</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ======================= 더 해 보기 ======================= -->
+    <section class="nb-sec" id="more" aria-label="작업실 더 해 보기">
+      <div class="nb-sec-head"><span class="nb-no">+</span><h2>작업실 더 해 보기</h2></div>
+      <p class="lead">오래 걸리는 동영상·오디오는 강사가 미리 만든 예시를 함께 봅니다. 연수 뒤에 하나씩 눌러 보세요.</p>
+      <div class="nb-box">
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">오디오 개요</span><span class="ptext">학교폭력 사안처리 절차를 처음 맡은 교사가 출퇴근길에 듣고 이해할 수 있도록, 신고 접수부터 교육청 보고까지 기한 중심으로 설명해 줘.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">동영상 개요</span><span class="ptext">학부모 연수용으로, 학교폭력이 생겼을 때 학교가 하는 일과 보호자가 할 일을 3분 요약 영상으로 만들어 줘.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">마인드맵 다듬기</span><span class="ptext">이 마인드맵의 구조와 핵심 내용은 그대로 유지하면서, 교직원 연수 자료로 쓸 수 있게 깔끔한 인포그래픽 스타일로 새롭게 디자인해줘. 가지마다 색을 달리해 구분되게 해줘.</span><button class="prompt-copy">복사</button></div>
+          <div class="prompt-row"><span class="pcat">맞춤 대화</span><span class="ptext">너는 10년 차 교무부장이다. 짧고 솔직하게, 빠뜨린 절차가 있으면 먼저 짚어 줘.</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <ul class="nb-list">
+          <li><strong>동영상 개요</strong> — 화살표(&gt;)에서 설명/요약, 스타일(화이트보드·귀여움·애니메이션·수채화·레트로 등), 언어 선택. 설명 영상은 10분 안팎. 내려받기: 결과 오른쪽 위 ⋮ → 다운로드</li>
+          <li><strong>시네마틱 영상</strong> — 구글 계정 언어를 영어로 바꾸면 메뉴가 보여요. 결과는 영어, 30분 이상 걸림</li>
+          <li><strong>세로 숏폼(9:16)</strong> — 아직 한글 자막 미지원 (2026. 8. 기준)</li>
+          <li><strong>마인드맵 → 나노바나나</strong> — 마인드맵을 내려받거나 캡처해 Gemini 앱에 올리고 위 '마인드맵 다듬기'</li>
+          <li><strong>Gemini 앱에서 노트북 쓰기</strong> — Gemini 왼쪽 메뉴 [노트북] → 이 노트북 선택 → 소스를 바탕으로 이어서 대화·이미지 만들기</li>
+          <li><strong>구글 클래스룸 연동</strong> (goe 학교 계정) — 수업 과제 만들기(+) → [NotebookLM] → 기존 노트북 선택. 관리자가 노트북 사용 권한을 켜 둬야 보여요</li>
+          <li><strong>맞춤 대화 설정</strong> — [노트북 구성] → 대화 스타일 '맞춤', 답변 길이 '길게'</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= 05 도전 ======================= -->
+    <section class="nb-sec" id="p05" aria-label="05 도전 교과서">
+      <div class="nb-sec-head"><span class="nb-no">05</span><h2>도전 — 교과서 PDF 한 개로</h2></div>
+      <p class="lead">기초편(사회 3-2 교통의 변화)과 같은 흐름을 수업용으로. 과학 5-2-4 교과서로 학생 퀴즈 폼까지 만들어 보세요.</p>
+      <div class="nb-box">
+        <div class="dl-row">
+          <a class="btn btn-secondary force-download" href="assets/guide/s6-practice-social-transport.pdf" download="사회_3-2_교통의변화로_달라진_생활모습.pdf">사회 3-2 교과서 (PDF) ↓</a>
+          <a class="btn btn-secondary" href="index.html#s6">기초편 프롬프트 보기</a>
+        </div>
+        <div class="prompt-list">
+          <div class="prompt-row"><span class="pcat">학생 퀴즈</span><span class="ptext">5학년 2학기 4단원으로 학생용 확인 퀴즈 10문항을 만들어 줘.
+4지선다, 표로: 번호 | 문항 | 보기1~4 | 정답 | 해설(초등 5학년 눈높이) | 근거(교과서 쪽)</span><button class="prompt-copy">복사</button></div>
+        </div>
+        <p class="check-note">→ 04처럼 데이터 표 → 구글 시트 → 구글 폼 퀴즈로. 과학 5-2-4 교과서 PDF는 용량이 커서 zip에서 뺐어요 — 교과서 누리집에서 받아 쓰세요.</p>
+      </div>
+    </section>
+
+    <!-- ======================= 막히면 ======================= -->
+    <section class="stuck" aria-label="막히면 이렇게">
+      <h3>막히면 이렇게</h3>
+      <ul class="nb-list">
+        <li><strong>엑셀(xlsx)이 안 올라가요</strong> → 엑셀에서 CSV(UTF-8)로 저장하거나, 구글 드라이브에 올려 구글 시트로 연 뒤 소스 추가 → Drive</li>
+        <li><strong>한/글 파일은요?</strong> → <strong>hwp·hwpx 그대로 됩니다.</strong> pdf·txt·md·docx·csv·pptx도 됩니다 (goe 계정에서 2026. 10. 13. 확인)</li>
+        <li><strong>무료 하루 한도</strong> → 채팅 50회 · 슬라이드 3회 · 오디오 개요 3회. 슬라이드는 개요를 질문창에서 먼저 확정하고 한 번에</li>
+        <li><strong>영상이 오래 걸려요</strong> → 생성은 걸어 두고 다음 실습으로. 연수 중에는 미리 만든 예시를 봅니다</li>
+        <li><strong>답이 이상해요</strong> → 인용 번호를 눌러 원문 확인. 띄어쓰기가 빠진 PDF·표가 많은 PDF는 잘못 읽을 수 있어요</li>
+        <li><strong>AI 답을 소스로 바꿀 때</strong> → 인용으로 확인한 것만, 제목 앞에 [검증]</li>
+      </ul>
+    </section>
+
+    <!-- ======================= 기능 체크리스트 ======================= -->
+    <section class="nb-sec" id="check" aria-label="기능 체크리스트">
+      <div class="nb-sec-head"><span class="nb-no">✓</span><h2>기능 체크리스트</h2></div>
+      <p class="lead">참고 영상·자료에 나온 기능이 이 페이지 어디에 있는지 모았어요.</p>
+      <div class="nb-table-wrap">
+        <table class="nb-table">
+          <thead><tr><th>기능</th><th>실습 위치</th></tr></thead>
+          <tbody>
+            <tr><td>소스만 근거로 답 · 인용 번호 · "소스에 없습니다"</td><td>00 비교 질문, 01, 03 함정 질문</td></tr>
+            <tr><td>학교 계정은 학습에 안 쓰임 · 비공개</td><td>맨 위 비교표</td></tr>
+            <tr><td>자료 올리기: PDF·한/글(hwp·hwpx)·문서·CSV·웹·유튜브·드라이브·텍스트·사진</td><td>01~03</td></tr>
+            <tr><td>웹 검색(빠른/심층 조사)으로 소스 추가</td><td>03 — 사람이 고른 것만 들이기</td></tr>
+            <tr><td>라벨 (자동 분류, 라벨만 골라 슬라이드)</td><td>03 모든 트랙에서 먼저</td></tr>
+            <tr><td>맞춤 대화 설정 · 답변 길이</td><td>00 맞춤 지침, 더 해 보기</td></tr>
+            <tr><td>메모에 저장 → 소스로 변환</td><td>01 ([검증] 규칙)</td></tr>
+            <tr><td>소스 점검 (깡통·중복 소스)</td><td>03 모든 트랙에서 먼저</td></tr>
+            <tr><td>슬라이드 + 스타일 옵션</td><td>02-3</td></tr>
+            <tr><td>개요 → 캐릭터 세트 → PDF 재소스로 무한 확장 · 한 장 고치기</td><td>02 슬라이드 심화 ①~⑤</td></tr>
+            <tr><td>인포그래픽 (스타일 · 방향 · 세부 정보)</td><td>02 슬라이드 심화 ⑥, 03-E·F</td></tr>
+            <tr><td>마인드맵 + 노드 클릭 → 질문창</td><td>03-E</td></tr>
+            <tr><td>마인드맵 → 나노바나나로 다듬기</td><td>더 해 보기</td></tr>
+            <tr><td>동영상 개요 · 시네마틱 · 숏폼</td><td>더 해 보기</td></tr>
+            <tr><td>오디오 개요 (팟캐스트)</td><td>더 해 보기</td></tr>
+            <tr><td>데이터 표 → 구글 시트 내보내기</td><td>04</td></tr>
+            <tr><td>퀴즈 (작업실) · 형성평가 출제</td><td>04, 05</td></tr>
+            <tr><td>Gemini 앱 '노트북' 메뉴 · 구글 클래스룸 연동</td><td>더 해 보기</td></tr>
+            <tr><td>업무 미션: 학교자율시간 연구부장 / 급식 인포그래픽·가정통신문</td><td>03-E, 03-F</td></tr>
+            <tr><td>하루 한도 (채팅 50 · 슬라이드 3 · 오디오 3)</td><td>막히면 이렇게</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="arcade-source">프롬프트·기능 참고: 쓰로인훈쌤 — NotebookLM 라이브 연수 · 오빠두엑셀 — 노트북LM 2.0 핵심 기능 · 강성희 — 선생님을 위한 노트북LM 활용법</p>
+      <div class="dl-row">
+        <a class="btn btn-primary force-download" href="assets/notebook/노트북연수_실습.zip" download="노트북연수_실습.zip">실습 자료 전체 zip ↓</a>
+        <a class="btn btn-secondary" href="index.html">AI 교실 처음으로</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // 모바일 내비게이션 토글
+    (function () {
+      var nav = document.querySelector('.primary-nav');
+      var toggle = document.querySelector('.nav-toggle');
+      if (toggle && nav) {
+        toggle.addEventListener('click', function () { nav.classList.toggle('open'); });
+        nav.querySelectorAll('.nav-links a').forEach(function (a) {
+          a.addEventListener('click', function () { nav.classList.remove('open'); });
+        });
+      }
+    })();
+
+    // 다운로드 버튼: 새 탭에서 열리지 않고 즉시 파일로 저장되도록 강제
+    (function () {
+      document.querySelectorAll('a.force-download').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var url = link.getAttribute('href');
+          var filename = link.getAttribute('download') || url.split('/').pop();
+          fetch(url, { cache: 'no-store' })
+            .then(function (res) { return res.blob(); })
+            .then(function (blob) {
+              var blobUrl = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = blobUrl; a.download = filename;
+              document.body.appendChild(a); a.click();
+              document.body.removeChild(a);
+              setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 1000);
+            })
+            .catch(function () { window.location.href = url; });
+        });
+      });
+    })();
+
+    // 프롬프트 한 줄씩 복사
+    (function () {
+      document.querySelectorAll('.prompt-copy').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = btn.closest('.prompt-row').querySelector('.ptext').textContent.trim();
+          var done = function () {
+            btn.classList.add('copied');
+            var prev = btn.textContent;
+            btn.textContent = '복사됨';
+            setTimeout(function () { btn.classList.remove('copied'); btn.textContent = prev; }, 1200);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+          } else { fallback(text); done(); }
+        });
+      });
+      function fallback(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>
