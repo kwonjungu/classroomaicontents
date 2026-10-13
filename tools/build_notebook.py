@@ -20,7 +20,7 @@ SITE_URL = "https://classroomaicontents.vercel.app/notebook/"
 ZIP_FILE = os.path.join(ROOT, "assets", "notebook", "노트북연수_실습.zip")
 ZIP_HREF = "../assets/notebook/%EB%85%B8%ED%8A%B8%EB%B6%81%EC%97%B0%EC%88%98_%EC%8B%A4%EC%8A%B5.zip"
 ZIP_SIZE = f"{os.path.getsize(ZIP_FILE)/1024/1024:.0f}MB" if os.path.exists(ZIP_FILE) else ""
-assert [x[0] for x in P] == list(INFO), "P와 INFO의 실습 번호가 달라요"
+assert sorted(x[0] for x in P) == sorted(INFO), "P와 INFO의 실습 번호가 달라요"
 
 LEVELS = ["기본", "보통", "도전"]
 LVCLS = {"기본": "lv1", "보통": "lv2", "도전": "lv3"}
@@ -63,8 +63,9 @@ def plain(t):
 
 # (파일, 제목, (탭 번호, 탭 이름))
 PNO = {f"p{x[0]}.html": x[0] for x in P}
+DISP = lambda no: "기본" if no == "06" else no
 PAGES = ([("concept.html", "근거로 답하는 AI란?", ("1", "개념")), ("start.html", "처음 준비", ("2", "준비"))]
-         + [(f"p{no}.html", plain(t), (no, nav)) for no, _, t, nav, _, _ in P]
+         + [(f"p{no}.html", plain(t), (DISP(no), nav)) for no, _, t, nav, _, _ in P]
          + [("wrap.html", "정리 · 내일부터 이렇게", ("✓", "정리"))])
 GROUP = {"concept.html": "개념", "start.html": "처음 준비", "wrap.html": "정리"}
 
@@ -328,7 +329,7 @@ for k, (no, folder, title, nav, lead, steps) in enumerate(P):
     tips = ('<div class="ptips" role="note"><p class="ptips-h">막히면 이렇게 · 실측</p><ul>' + "".join(f"<li>{x}</li>" for x in notes) + '</ul></div>') if notes else ""
     body = (f'<p class="pnote">순서: 소스 넣기 → 프롬프트 <strong>[복사]</strong> → 질문창 <strong>Ctrl+V</strong> → 인용 눌러 확인. '
             f'파일은 바탕화면 <strong>노트북연수_실습/{E(folder)}</strong> 폴더에 있어요.</p>' + tips + "".join(out))
-    page(f"p{no}.html", f"실습 {no}", title, lead, TILES[k % len(TILES)], no.upper(), body, badges(no))
+    page(f"p{no}.html", f"실습 {DISP(no)}", title, lead, TILES[k % len(TILES)], DISP(no).upper(), body, badges(no))
 
 page("wrap.html", "마무리", "정리 ·<br />내일부터 이렇게", "근거로 답하는 노트북을 내 업무에 붙이는 법.", "tile-flow", "✓", WRAP)
 
@@ -379,7 +380,7 @@ home_body = (hero
              + '<section class="hub"><h2 class="hub-h"><span>3</span>실습</h2><p class="hub-lead">페이지마다 단계별 안내 · 프롬프트 [복사] · 실측 메모가 있어요. 기본 → 보통 → 도전 순서예요.</p>'
              + "".join(
                  (f'<h3 class="hub-lv {LVCLS[lv]}">{lv}</h3><div class="hub-grid">'
-                  + "".join(card(f"p{no}.html", f"실습 {no}", plain(t), l, extra=badges(no)) for no, _, t, _, l, _ in MAIN if INFO[no]["level"] == lv)
+                  + "".join(card(f"p{no}.html", f"실습 {DISP(no)}", plain(t), l, extra=badges(no)) for no, _, t, _, l, _ in MAIN if INFO[no]["level"] == lv)
                   + '</div>') for lv in LEVELS)
              + '<h3 class="hub-lv lv2">03 내 업무 트랙 (하나 고르기)</h3><div class="hub-grid">'
              + "".join(card(f"p{no}.html", f"트랙 {no[-1].upper()}", plain(t), l, extra=badges(no)) for no, _, t, _, l, _ in TRACK)
