@@ -176,6 +176,7 @@ def topbar(current):
       <a class="deck-tab" href="../index.html">AI 콘텐츠 홈 &#8599;</a>
       <a class="deck-tab deck-tab-padlet" href="https://notebook.google.com/" target="_blank" rel="noopener">노트북 열기 &#8599;</a>
       <button class="deck-tab addr-open" type="button" title="사이트 주소와 QR 크게 보기">주소 · QR</button>
+      <span class="rel-set" aria-label="수업용 AI 세트"><span class="rel-k">수업용 AI 세트</span><a class="rel-a" href="https://classroomaicontents.vercel.app/">AI 교실</a><span class="rel-a on" aria-current="page">노트북 LM</span><a class="rel-a" href="https://myfirstaigent.vercel.app/">에이전트 AI</a><a class="rel-a" href="https://myfirstaigent.vercel.app/tip">하루 팁</a></span>
     </div>
   </div>
   <header class="primary-nav">
